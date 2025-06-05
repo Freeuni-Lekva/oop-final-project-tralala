@@ -11,9 +11,9 @@ public class AccountCreationListener implements ServletContextListener {
     public AccountCreationListener() {}
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        AccountManager myAccountManager = new AccountManager();
+        AccountManager MyAccountManager = new AccountManager();
         ServletContext scontxt = sce.getServletContext();
-        scontxt.setAttribute(AccountManager.ATTRIBUTE_NAME, myAccountManager);
+        scontxt.setAttribute(AccountManager.ATTRIBUTE_NAME, MyAccountManager);
     }
 
     @Override
