@@ -1,0 +1,7 @@
+Login\LoginServlet.class
+WebStore\ShoppingCartServlet.class
+Login\AccountCreationServlet.class
+Login\AccountCreationListener.class
+Login\AccountManager.class
+WebStore\DataManagerListener.class
+WebStore\ShoppingCart.class
