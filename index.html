@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pink Modern Homepage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ffeef5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e91e63;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .day-header {
+            font-weight: bold;
+            color: #e91e63;
+            text-align: center;
+        }
+
+        .day {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sections {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .calendar {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .sections {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Pink Modern Desktop Wallpaper</h1>
+<div class="subtitle">www.reallygreatsite.com</div>
+
+<div class="calendar">
+    <div class="day-header">SU</div><div class="day-header">MO</div><div class="day-header">TU</div><div class="day-header">WE</div>
+    <div class="day-header">TH</div><div class="day-header">FR</div><div class="day-header">SA</div>
+
+    <!-- Week 1 -->
+    <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+    <div class="day">5</div><div class="day">6</div><div class="day">7</div>
+
+    <!-- Week 2 -->
+    <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+    <div class="day">12</div><div class="day">13</div><div class="day">14</div>
+
+    <!-- Week 3 -->
+    <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div>
+    <div class="day">19</div><div class="day">20</div><div class="day">21</div>
+
+    <!-- Week 4 -->
+    <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+    <div class="day">26</div><div class="day">27</div><div class="day">28</div>
+
+    <!-- Week 5 -->
+    <div class="day">29</div><div class="day">30</div><div class="day">31</div>
+</div>
+
+<div class="sections">
+    <div>APPS</div>
+    <div>FOLDERS</div>
+    <div>REMINDER</div>
+</div>
+</body>
+</html>
