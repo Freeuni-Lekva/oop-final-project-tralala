@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,10 +107,36 @@
 
         .back-link:hover {
             text-decoration: underline;
+=======
+<html>
+<head>
+    <title>Login page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            display: block;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+>>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
         }
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <div class="login-container">
         <div class="login-header">
             <h1>QuizMaster</h1>
@@ -138,5 +165,22 @@
 
         <a href="solar_system.html" class="back-link">Back to Home</a>
     </div>
+=======
+<h1>Welcome to Homework 5</h1>
+
+<p>Please log in.</p>
+
+<form action="Login" method="post">
+    <label>User Name:</label>
+    <input type="text" name="username" />
+
+    <label>Password:</label>
+    <input type="text" name="password" />
+
+    <input type="submit" value="Login" />
+</form>
+
+<p><a href="create_new.jsp">Create New Account</a></p>
+>>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
 </body>
 </html>

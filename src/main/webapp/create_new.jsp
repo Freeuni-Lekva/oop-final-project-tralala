@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Create New Account</title>
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Playfair+Display:700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -153,10 +154,38 @@
                     inset #333 0 0 0 5px,
                     inset white 0 0 0 6px;
             }
+=======
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            display: block;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+>>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
         }
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <div id="app" class="container">
         <card data-image="https://images.unsplash.com/photo-1479660656269-197ebb83b540?dpr=2&auto=compress,format&fit=crop&w=1199&h=798&q=80&cs=tinysrgb&crop=">
             <h1 slot="header">Create Account</h1>
@@ -332,5 +361,20 @@
             particleRadius: 2
         });
     </script>
+=======
+<h1>Create New Account</h1>
+
+<p>Please enter your desired username and password.</p>
+
+<form action="AccountCreation" method="post">
+    <label>User Name:</label>
+    <input type="text" name="username" />
+
+    <label>Password:</label>
+    <input type="text" name="password" />
+
+    <input type="submit" value="Create" />
+</form>
+>>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
 </body>
 </html>

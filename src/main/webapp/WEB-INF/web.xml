@@ -1,4 +1,5 @@
 <!DOCTYPE web-app PUBLIC
+<<<<<<< HEAD
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
@@ -11,3 +12,43 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
+=======
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>Login.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>AccountCreation</servlet-name>
+    <servlet-class>Login.AccountCreationServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>WebStore</servlet-name>
+    <servlet-class>WebStore.ShoppingCartServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>WebStore</servlet-name>
+    <url-pattern>/WebStore</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AccountCreation</servlet-name>
+    <url-pattern>/AccountCreation</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
+>>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
