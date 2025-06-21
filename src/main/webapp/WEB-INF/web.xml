@@ -11,7 +11,7 @@
 
   <servlet>
     <servlet-name>Login</servlet-name>
-    <servlet-class>Login.LoginServlet</servlet-class>
+    <servlet-class>Controllers.LogInServlet</servlet-class>
   </servlet>
 
   <servlet>

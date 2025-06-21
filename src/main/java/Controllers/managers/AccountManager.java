@@ -2,7 +2,7 @@ package Controllers.managers;
 
 import Dao.AccountsDao;
 import Models.Account;
-//import Models.LeaderboardEntry;
+
 import Models.passwordHasher;
 //import Models.Quiz;
 import utils.SQLConnector;
@@ -84,13 +84,13 @@ public class AccountManager {
         accountDAO.updateAccount(account);
     }
 
-   // public List<LeaderboardEntry> getLeaderboard() {
-    //    return new ArrayList<>();
-   // }
+    //public List<LeaderboardEntry> getLeaderboard() {
+     //   return new ArrayList<>();
+    //}
 
-   // public List<Quiz> getNewQuizzes() {
-   //     return new ArrayList<>();
-   // }
+    //public List<Quiz> getNewQuizzes() {
+    //    return new ArrayList<>();
+    //}
 
     public List<Account> getAccounts() throws SQLException {
         return accountDAO.getAllAccounts();

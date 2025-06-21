@@ -13,7 +13,7 @@
 
         body {
             font-family: "Raleway";
-            background-image: url('https://images.pexels.com/photos/268883/pexels-photo-268883.jpeg');
+            background-image: url('https://wallpaper.dog/large/20419572.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -143,7 +143,7 @@
             <p>Sign in to your account</p>
         </div>
 
-        <form action="login" method="POST">
+        <form action="/Login" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
