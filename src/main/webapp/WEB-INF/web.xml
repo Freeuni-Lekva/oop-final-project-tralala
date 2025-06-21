@@ -16,18 +16,10 @@
 
   <servlet>
     <servlet-name>AccountCreation</servlet-name>
-    <servlet-class>Login.AccountCreationServlet</servlet-class>
+    <servlet-class>Controllers.managers.AccountCreationServlet</servlet-class>
   </servlet>
 
-  <servlet>
-    <servlet-name>WebStore</servlet-name>
-    <servlet-class>WebStore.ShoppingCartServlet</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>WebStore</servlet-name>
-    <url-pattern>/WebStore</url-pattern>
-  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
@@ -38,4 +30,22 @@
     <servlet-name>AccountCreation</servlet-name>
     <url-pattern>/AccountCreation</url-pattern>
   </servlet-mapping>
+
+  <context-param>
+    <param-name>AccountManager</param-name>
+    <param-value>Controllers.managers.AccountManager</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>Controllers.managers.AccountManagerListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>AccountManager</param-name>
+    <param-value>Controllers.managers.AccountManager</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>Controllers.managers.AccountManagerListener</listener-class>
+  </listener>
 </web-app>
