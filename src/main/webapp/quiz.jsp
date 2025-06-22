@@ -13,16 +13,43 @@
             font-family: "Raleway";
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #121212;
+            background-image: url('https://wallpaper.dog/large/20419572.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background-color: rgba(30, 30, 30, 0.95);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f1f1f1;
+        }
+
+        .category-header h1 {
+            font-family: "Playfair Display";
+            font-size: 36px;
+            color: #f1f1f1;
+            margin: 0;
+        }
+
+        .category-header p {
+            color: #cccccc;
+            font-size: 18px;
+            margin: 10px 0 0;
         }
 
         .question {
@@ -30,64 +57,32 @@
             padding: 20px;
             border-radius: 8px;
             transition: all 0.3s ease;
-            background-color: white;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: #f1f1f1;
+            opacity: 0.7;
+            filter: blur(2px);
+            pointer-events: none;
         }
 
         .question.current {
-            background: white;
+            background-color: rgba(30, 30, 30, 0.95);
             transform: scale(1.02);
-            z-index: 1;
-        }
-
-        .question:not(:nth-child(-n+2)) {
-            filter: blur(2px);
-            opacity: 0.7;
-            pointer-events: none;
-            background: var(--blur-color);
-        }
-
-        .full-quiz-button {
-            margin-top: 30px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .full-quiz-button a {
-            display: inline-block;
-            padding: 15px 30px;
-            border-radius: 25px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .full-quiz-button a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .question:not(.current) {
-            filter: blur(2px);
-            opacity: 0.7;
-            pointer-events: none;
-            background: var(--blur-color);
+            opacity: 1;
+            filter: none;
+            pointer-events: all;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .question-number {
             font-size: 18px;
-            color: #666;
+            color: #cccccc;
             margin-bottom: 10px;
         }
 
         .question-text {
             font-size: 24px;
             font-weight: 600;
+            color: #f1f1f1;
             margin-bottom: 20px;
         }
 
@@ -99,15 +94,16 @@
 
         .option {
             padding: 15px 20px;
-            border: 2px solid #ddd;
+            border: 2px solid #444;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: #f1f1f1;
         }
 
         .option:hover {
-            background: #f8f9fa;
-            border-color: #ccc;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #666;
         }
 
         .option.selected {
@@ -126,28 +122,47 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background: #1976D2;
         }
 
         .next-btn.show {
             display: block;
         }
 
-        .category-header {
+        .full-quiz-button {
+            margin-top: 30px;
             text-align: center;
-            margin-bottom: 40px;
         }
 
-        .category-header h1 {
-            font-family: "Playfair Display";
-            font-size: 36px;
-            color: #333;
-            margin: 0;
+        .full-quiz-button a {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 25px;
+            background-color: #888;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .category-header p {
-            color: #666;
+        .full-quiz-button a:hover {
+            background-color: #666;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .error-message {
+            color: #ff4444;
+            text-align: center;
+            padding: 20px;
             font-size: 18px;
-            margin: 10px 0 0;
         }
     </style>
 </head>
@@ -157,7 +172,6 @@
         String categoryName = "";
         String categoryDescription = "";
         
-        // Set category name and description
         switch(category) {
             case "art":
                 categoryName = "Art Quiz";
@@ -181,166 +195,164 @@
         }
     </jsp:scriptlet>
 
-    <div class="category-header">
-        <h1><jsp:expression>categoryName</jsp:expression></h1>
-        <p><jsp:expression>categoryDescription</jsp:expression></p>
-    </div>
-
-    <jsp:scriptlet>
-        String[] questions = new String[] {};
-        String[][] options = new String[][] {};
-        
-        switch(category) {
-            case "art":
-                questions = new String[] {
-                    "Which artist painted the iconic Mona Lisa?",
-                    "Which artist is famous for his optical illusion artworks?",
-                    "Who created the famous painting 'The Starry Night'?",
-                    "Which artist painted 'The Persistence of Memory' (melting clocks)?",
-                    "Who created the expressionist masterpiece 'The Scream'?"
-                };
-                options = new String[][] {
-                    {"Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"},
-                    {"Salvador Dali", "M.C. Escher", "Pablo Picasso", "Jackson Pollock"},
-                    {"Vincent van Gogh", "Claude Monet", "Edgar Degas", "Pierre-Auguste Renoir"},
-                    {"Salvador Dali", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"},
-                    {"Vincent van Gogh", "Edvard Munch", "Pablo Picasso", "Leonardo da Vinci"}
-                };
-                break;
-            case "sports":
-                questions = new String[] {
-                    "Who holds the record for most Grand Slam titles in men's tennis?",
-                    "Which country has won the most FIFA World Cups?",
-                    "Who is the all-time leading scorer in NBA history?",
-                    "Which Formula 1 driver has won the most World Championships?",
-                    "Who won the most Olympic gold medals in history?"
-                };
-                options = new String[][] {
-                    {"Roger Federer", "Rafael Nadal", "Novak Djokovic", "Pete Sampras"},
-                    {"Brazil", "Germany", "Italy", "Argentina"},
-                    {"LeBron James", "Kareem Abdul-Jabbar", "Karl Malone", "Michael Jordan"},
-                    {"Lewis Hamilton", "Michael Schumacher", "Ayrton Senna", "Sebastian Vettel"},
-                    {"Michael Phelps", "Larisa Latynina", "Natalie Coughlin", "Allan Wells"}
-                };
-                break;
-            case "science":
-                questions = new String[] {
-                    "What is the chemical symbol for gold?",
-                    "Which planet is known as the Red Planet?",
-                    "What is the speed of light in a vacuum?",
-                    "What is the largest organ in the human body?",
-                    "What gas makes up most of Earth's atmosphere?"
-                };
-                options = new String[][] {
-                    {"Au", "Ag", "Cu", "Fe"},
-                    {"Mars", "Venus", "Jupiter", "Saturn"},
-                    {"299,792 km/s", "300,000 km/s", "299,792,458 m/s", "300,000,000 m/s"},
-                    {"Liver", "Skin", "Heart", "Lungs"},
-                    {"Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"}
-                };
-                break;
-            case "movies":
-                questions = new String[] {
-                    "Who directed the movie 'The Godfather'?",
-                    "Which movie won the Academy Award for Best Picture in 2020?",
-                    "Which actor played Tony Stark in the Marvel Cinematic Universe?",
-                    "What is the highest-grossing movie of all time worldwide?",
-                    "Which movie features the famous line 'May the Force be with you'?"
-                };
-                options = new String[][] {
-                    {"Francis Ford Coppola", "Martin Scorsese", "Steven Spielberg", "Quentin Tarantino"},
-                    {"Parasite", "Joker", "1917", "Once Upon a Time in Hollywood"},
-                    {"Robert Downey Jr.", "Chris Evans", "Chris Hemsworth", "Tom Holland"},
-                    {"Avatar", "Titanic", "Star Wars: The Force Awakens", "Avengers: Endgame"},
-                    {"The Godfather", "The Dark Knight", "Star Wars", "The Matrix"}
-                };
-                break;
-            default:
-                questions = new String[] {
-                    "What is the capital of France?",
-                    "Who painted the Mona Lisa?",
-                    "What is the largest planet in our solar system?",
-                    "Who wrote 'Romeo and Juliet'?",
-                    "What is the chemical symbol for water?"
-                };
-                options = new String[][] {
-                    {"Paris", "London", "Berlin", "Madrid"},
-                    {"Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"},
-                    {"Jupiter", "Saturn", "Mars", "Earth"},
-                    {"William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"},
-                    {"H2O", "CO2", "O2", "NaCl"}
-                };
-        }
-    </jsp:scriptlet>
-
     <div class="quiz-container">
-        <% if (questions != null && options != null) {
-            for(int i = 0; i < questions.length; i++) { %>
-            <div class="question">
-                <div class="question-number">Question <%= i + 1 %></div>
-                <div class="question-text"><%= questions[i] %></div>
-                <div class="options">
-                    <div class="option" onclick="selectOption(0)"><%= options[i][0] %></div>
-                    <div class="option" onclick="selectOption(1)"><%= options[i][1] %></div>
-                    <div class="option" onclick="selectOption(2)"><%= options[i][2] %></div>
-                    <div class="option" onclick="selectOption(3)"><%= options[i][3] %></div>
+        <div class="category-header">
+            <h1><jsp:expression>categoryName</jsp:expression></h1>
+            <p><jsp:expression>categoryDescription</jsp:expression></p>
+        </div>
+
+        <jsp:scriptlet>
+            String[] questions = new String[] {};
+            String[][] options = new String[][] {};
+            
+            switch(category) {
+                case "art":
+                    questions = new String[] {
+                        "Which artist painted the iconic Mona Lisa?",
+                        "Which artist is famous for his optical illusion artworks?",
+                        "Who created the famous painting 'The Starry Night'?",
+                        "Which artist painted 'The Persistence of Memory' (melting clocks)?",
+                        "Who created the expressionist masterpiece 'The Scream'?"
+                    };
+                    options = new String[][] {
+                        {"Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"},
+                        {"Salvador Dali", "M.C. Escher", "Pablo Picasso", "Jackson Pollock"},
+                        {"Vincent van Gogh", "Claude Monet", "Edgar Degas", "Pierre-Auguste Renoir"},
+                        {"Salvador Dali", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"},
+                        {"Vincent van Gogh", "Edvard Munch", "Pablo Picasso", "Leonardo da Vinci"}
+                    };
+                    break;
+                case "science":
+                    questions = new String[] {
+                        "What is the chemical symbol for gold?",
+                        "Which planet is known as the Red Planet?",
+                        "What is the hardest natural substance on Earth?",
+                        "What is the largest organ in the human body?",
+                        "What is the process by which plants make their food?"
+                    };
+                    options = new String[][] {
+                        {"Gd", "Au", "Ag", "Fe"},
+                        {"Venus", "Jupiter", "Mars", "Saturn"},
+                        {"Gold", "Iron", "Diamond", "Platinum"},
+                        {"Heart", "Brain", "Skin", "Liver"},
+                        {"Photosynthesis", "Respiration", "Digestion", "Circulation"}
+                    };
+                    break;
+                case "sports":
+                    questions = new String[] {
+                        "Which country won the FIFA World Cup 2022?",
+                        "In which sport would you perform a slam dunk?",
+                        "How many players are there in a standard soccer team on the field?",
+                        "Which country invented table tennis?",
+                        "What is the distance of a marathon race in kilometers?"
+                    };
+                    options = new String[][] {
+                        {"Brazil", "France", "Argentina", "Germany"},
+                        {"Football", "Basketball", "Volleyball", "Tennis"},
+                        {"9", "10", "11", "12"},
+                        {"China", "Japan", "England", "USA"},
+                        {"21.1", "32.2", "42.2", "50.0"}
+                    };
+                    break;
+                case "movies":
+                    questions = new String[] {
+                        "Who directed the movie 'Inception'?",
+                        "Which actor played Iron Man in the Marvel Cinematic Universe?",
+                        "What movie won the Academy Award for Best Picture in 2024?",
+                        "Which film franchise features a character named Luke Skywalker?",
+                        "Who played the role of Jack in the movie 'Titanic'?"
+                    };
+                    options = new String[][] {
+                        {"Steven Spielberg", "Christopher Nolan", "Martin Scorsese", "James Cameron"},
+                        {"Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"},
+                        {"Barbie", "Oppenheimer", "Poor Things", "The Holdovers"},
+                        {"Star Trek", "Star Wars", "Battlestar Galactica", "The Expanse"},
+                        {"Brad Pitt", "Leonardo DiCaprio", "Matt Damon", "Tom Cruise"}
+                    };
+                    break;
+                default:
+                    questions = new String[] {};
+                    options = new String[][] {};
+            }
+        </jsp:scriptlet>
+
+        <% if (questions != null && questions.length > 0) { %>
+            <% for(int i = 0; i < questions.length; i++) { %>
+                <div class="question <%= i == 0 ? "current" : "" %>">
+                    <div class="question-number">Question <%= i + 1 %></div>
+                    <div class="question-text"><%= questions[i] %></div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][0] %></div>
+                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][1] %></div>
+                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][2] %></div>
+                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][3] %></div>
+                    </div>
+                    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
                 </div>
-                <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-            </div>
-        <% } %>
+            <% } %>
         <% } else { %>
             <div class="error-message">
                 <p>No questions available for this category</p>
             </div>
         <% } %>
+
+        <div class="full-quiz-button">
+            <a href="login.jsp">Log In to Access Full Quiz</a>
+        </div>
     </div>
 
     <script>
         let currentQuestion = 0;
-        let selectedOptions = Array(questions.length).fill(null);
+        let selectedOptions = Array(<%= questions.length %>).fill(null);
         const questions = document.querySelectorAll('.question');
 
-        function selectOption(index) {
-            if (!questions[currentQuestion].classList.contains('current')) return;
+        function selectOption(optionElement, questionIndex) {
+            if (!questions[questionIndex].classList.contains('current')) return;
             
-            const currentQuestionElement = questions[currentQuestion];
+            const currentQuestionElement = questions[questionIndex];
             const options = currentQuestionElement.querySelectorAll('.option');
             options.forEach(option => option.classList.remove('selected'));
-            options[index].classList.add('selected');
+            optionElement.classList.add('selected');
             
-            // Store the selected option
-            selectedOptions[currentQuestion] = index;
+            selectedOptions[questionIndex] = Array.from(options).indexOf(optionElement);
             
-            // Show next button
             const nextBtn = currentQuestionElement.querySelector('.next-btn');
             nextBtn.classList.add('show');
         }
 
         function nextQuestion() {
-            // Get current question
             const currentQuestionElement = questions[currentQuestion];
             currentQuestionElement.classList.remove('current');
 
-            // Get next question
             currentQuestion++;
             if (currentQuestion < questions.length) {
                 const nextQuestionElement = questions[currentQuestion];
                 nextQuestionElement.classList.add('current');
                 
-                // Add See Full Quiz button
-                const fullQuizButton = document.createElement('div');
-                fullQuizButton.className = 'full-quiz-button';
-                fullQuizButton.innerHTML = '<a href="quiz.jsp?category=all" class="nav-button">See Full Quiz</a>';
-                nextQuestionElement.appendChild(fullQuizButton);
-                
-                // Reset next button
                 const nextBtn = nextQuestionElement.querySelector('.next-btn');
                 nextBtn.classList.remove('show');
+
+                if (selectedOptions[currentQuestion] !== null) {
+                    const options = nextQuestionElement.querySelectorAll('.option');
+                    options[selectedOptions[currentQuestion]].classList.add('selected');
+                    nextBtn.classList.add('show');
+                }
             } else {
-                // Quiz completed
                 alert('Quiz completed!');
+                window.location.href = 'login.jsp';
             }
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (questions.length > 0) {
+                questions[0].classList.add('current');
+                if (selectedOptions[0] !== null) {
+                    const options = questions[0].querySelectorAll('.option');
+                    options[selectedOptions[0]].classList.add('selected');
+                    questions[0].querySelector('.next-btn').classList.add('show');
+                }
+            }
+        });
     </script>
 </body>
 </html>
