@@ -1,186 +1,123 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
-    <title>QuizMaster - Login</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Playfair+Display:700" rel="stylesheet">
+    <title>Login - QuizMaster</title>
     <style>
-        :root {
-            --hoverEasing: cubic-bezier(0.23, 1, 0.32, 1);
-            --returnEasing: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-        }
-
         body {
-            font-family: "Raleway";
+            font-family: Arial, sans-serif;
+            background-color: #121212;
             background-image: url('https://wallpaper.dog/large/20419572.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             margin: 0;
-            padding: 40px;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
         }
 
-        .login-container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
+        .login-box {
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 30px 40px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            width: 100%;
-            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            width: 350px;
         }
 
-        .login-header {
+        .login-box h2 {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-header h1 {
-            font-family: "Playfair Display";
-            font-size: 28px;
-            color: #333;
-            margin: 0;
-        }
-
-        .login-header p {
-            color: #666;
-            margin: 10px 0 0;
+            margin-bottom: 25px;
+            color: #f1f1f1;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #333;
-            font-weight: 500;
+            color: #e0e0e0;
+            font-weight: bold;
         }
 
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #666;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: 14px;
+            background-color: #222;
+            color: #f1f1f1;
         }
 
         .form-group input:focus {
+            border-color: #888;
             outline: none;
-            border-color: #007bff;
         }
 
         .login-button {
             width: 100%;
-            padding: 12px;
-            background-color: #007bff;
+            padding: 10px;
+            background-color: #888;
             color: white;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         .login-button:hover {
-            background-color: #0056b3;
+            background-color: #666;
         }
 
         .error-message {
-            color: #dc3545;
+            color: #ff4d4d;
+            font-size: 14px;
             margin-top: 10px;
             text-align: center;
         }
 
-        .back-link {
+        .link {
             display: block;
             text-align: center;
-            margin-top: 20px;
-            color: #007bff;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #bbbbff;
             text-decoration: none;
         }
 
-        .back-link:hover {
+        .link:hover {
             text-decoration: underline;
-=======
-<html>
-<head>
-    <title>Login page</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            display: inline-block;
-            text-align: left;
-            margin-top: 20px;
-        }
-
-        input[type="text"] {
-            display: block;
-            width: 200px;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            width: 100%;
->>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
         }
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <div class="login-container">
-        <div class="login-header">
-            <h1>QuizMaster</h1>
-            <p>Sign in to your account</p>
+<div class="login-box">
+    <h2>Login to QuizMaster</h2>
+    <form action="/Login" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
         </div>
 
-        <form action="/Login" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+        <div class="error-message">
+            <% if (request.getAttribute("error") != null) { %>
+            <%= request.getAttribute("error") %>
+            <% } %>
+        </div>
 
-            <div class="error-message">
-                <% if (request.getAttribute("error") != null) { %>
-                    <%= request.getAttribute("error") %>
-                <% } %>
-            </div>
+        <button type="submit" class="login-button">Login</button>
+    </form>
 
-            <button type="submit" class="login-button">Log In</button>
-        </form>
-
-        <a href="solar_system.html" class="back-link">Back to Home</a>
-    </div>
-=======
-<h1>Welcome to Homework 5</h1>
-
-<p>Please log in.</p>
-
-<form action="Login" method="post">
-    <label>User Name:</label>
-    <input type="text" name="username" />
-
-    <label>Password:</label>
-    <input type="text" name="password" />
-
-    <input type="submit" value="Login" />
-</form>
-
-<p><a href="create_new.jsp">Create New Account</a></p>
->>>>>>> 993fc4a66590bfd6c8aa8f36b916b7d9e781065b
+    <a href="create_new.jsp" class="link">Create New Account</a>
+    <a href="solar_system.html" class="link">Back to Home</a>
+</div>
 </body>
 </html>

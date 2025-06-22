@@ -1,96 +1,111 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Create New Account</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #121212;
+            background-image: url('https://wallpaper.dog/large/20419572.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
-            padding: 20px;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
         }
 
         .container {
-            background-color: white;
-            padding: 30px;
+            background-color: rgba(30, 30, 30, 0.95);
+            padding: 20px 25px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            width: 300px;
         }
 
         h1 {
             text-align: center;
-            color: #1a73e8;
-            margin-bottom: 30px;
+            color: #f1f1f1;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #3c4043;
-            font-weight: bold;
+            margin-bottom: 4px;
+            color: #cccccc;
+            font-size: 13px;
         }
 
         input[type="text"],
         input[type="email"],
         input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #dadce0;
+            padding: 8px;
+            border: 1px solid #666;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 13px;
+            background-color: #222;
+            color: #f1f1f1;
             box-sizing: border-box;
         }
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #1a73e8;
+        input:focus {
+            border-color: #888;
             outline: none;
         }
 
         button {
-            background-color: #1a73e8;
+            background-color: #888;
             color: white;
-            padding: 12px;
+            padding: 10px;
             width: 100%;
             border: none;
             border-radius: 4px;
             font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.2s;
         }
 
         button:hover {
-            background-color: #1557b0;
+            background-color: #666;
         }
 
         .error-message {
-            color: #d93025;
-            font-size: 12px;
-            margin-top: 5px;
+            color: #ff4d4d;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #bbbbff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Create New Account</h1>
+    <h1>Create Account</h1>
     <form action="AccountCreation" method="post">
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" required>
         </div>
         <div class="form-group">
-            <label for="lastName">Last Name (Surname)</label>
+            <label for="lastName">Surname</label>
             <input type="text" id="lastName" name="lastName" required>
         </div>
         <div class="form-group">
@@ -104,14 +119,15 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-            <div class="error-message">Password must be at least 8 characters long</div>
+            <div class="error-message">Minimum 8 characters</div>
         </div>
         <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
+            <label for="confirmPassword">Confirm</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
         </div>
-        <button type="submit">Create Account</button>
+        <button type="submit">Create</button>
     </form>
+    <a href="solar_system.html" class="link">Back to Home</a>
 </div>
 </body>
 </html>
