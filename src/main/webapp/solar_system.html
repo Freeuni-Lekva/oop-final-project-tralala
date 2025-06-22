@@ -49,22 +49,64 @@
 
         .nav-buttons {
             display: flex;
-            gap: 8px;
-            margin-left: 20px;
-            padding-right: 20px;
+            gap: 15px;
+            position: absolute;
+            top: 20px;
+            right: 120px;
+            z-index: 1000;
         }
 
-        .nav-buttons a {
+        .nav-buttons .category-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons .category-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Category buttons at bottom */
+        .category-buttons {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .category-buttons .category-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .category-buttons .category-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons .category-button span {
+            font-size: 20px;
             color: white;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 5px;
-            text-decoration: none;
         }
 
-        .nav-buttons a:hover {
-            text-decoration: underline;
+        .nav-buttons .category-button p {
+            color: white;
+            margin: 0;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .title {
@@ -101,9 +143,9 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow:
-                rgba(black, 0.66) 0 30px 60px 0,
+                rgba(0, 0, 0, 0.66) 0 30px 60px 0,
                 inset #333 0 0 0 5px,
-                inset rgba(white, 0.5) 0 0 0 6px;
+                inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
             transition: 1s var(--returnEasing);
         }
 
@@ -137,14 +179,36 @@
             font-family: "Playfair Display";
             font-size: 36px;
             font-weight: 700;
-            text-shadow: rgba(black, 0.5) 0 10px 10px;
+            text-shadow: rgba(0, 0, 0, 0.5) 0 10px 10px;
             margin: 0 0 20px 0;
         }
 
         .card-info p {
             opacity: 0;
-            text-shadow: rgba(black, 1) 0 2px 3px;
+            text-shadow: rgba(0, 0, 0, 1) 0 2px 3px;
             transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .card-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background-color: #3498db;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card-button:hover {
+            background-color: #2e6da4;
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .card-info:after {
@@ -193,11 +257,11 @@
                 0.6s var(--hoverEasing),
                 box-shadow 2s var(--hoverEasing);
             box-shadow:
-                rgba(white, 0.2) 0 0 40px 5px,
-                rgba(white, 1) 0 0 0 1px,
-                rgba(black, 0.66) 0 30px 60px 0,
+                rgba(255, 255, 255, 0.2) 0 0 40px 5px,
+                rgba(255, 255, 255, 1) 0 0 0 1px,
+                rgba(0, 0, 0, 0.66) 0 30px 60px 0,
                 inset #333 0 0 0 5px,
-                inset white 0 0 0 6px;
+                inset rgba(255, 255, 255, 1) 0 0 0 6px;
         }
     </style>
 </head>
@@ -212,13 +276,10 @@
             <a href="create_new.jsp" class="nav-button">Create Account</a>
         </div>
 
-        <style>
-
-        </style>
     </div>
 
     <div id="app" class="container">
-        <card data-image="https://images.pexels.com/photos/3587324/pexels-photo-3587324.jpeg">
+        <card data-image="https://images.pexels.com/photos/3587324/pexels-photo-3587324.jpeg" category="art">
             <template slot="header">
                 <h1>Art</h1>
             </template>
@@ -226,15 +287,15 @@
                 <p>Create boldly. Feel deeply. See differently</p>
             </template>
         </card>
-        <card data-image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Rafael_Nadal_2011_Roland_Garros_2011-crop.jpg">
+        <card data-image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Rafael_Nadal_2011_Roland_Garros_2011-crop.jpg" category="sports">
             <template slot="header">
-                <h1>Sport</h1>
+                <h1>Sports</h1>
             </template>
             <template slot="content">
                 <p>Push limits, Play hard, Know your game.</p>
             </template>
         </card>
-        <card data-image="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg">
+        <card data-image="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg" category="science">
             <template slot="header">
                 <h1>Science</h1>
             </template>
@@ -242,7 +303,7 @@
                 <p>Question everything. Discover the unseen.</p>
             </template>
         </card>
-        <card data-image="https://image.tmdb.org/t/p/original/gXIuss4Ajlex0E6iJPjkSTR8Qip.jpg">
+        <card data-image="https://image.tmdb.org/t/p/original/gXIuss4Ajlex0E6iJPjkSTR8Qip.jpg" category="movies">
             <template slot="header">
                 <h1>Movies</h1>
             </template>
@@ -258,7 +319,7 @@
 
         Vue.component('card', {
             template: `
-                <div class="card-wrap"
+                <a :href="quizLink" class="card-wrap"
                     @mousemove="handleMouseMove"
                     @mouseenter="handleMouseEnter"
                     @mouseleave="handleMouseLeave"
@@ -271,12 +332,12 @@
                             <slot name="content"></slot>
                         </div>
                     </div>
-                </div>`,
+                </a>`,
             mounted() {
                 this.width = this.$refs.card.offsetWidth;
                 this.height = this.$refs.card.offsetHeight;
             },
-            props: ['dataImage'],
+            props: ['dataImage', 'category'],
             data: () => ({
                 width: 0,
                 height: 0,
@@ -285,6 +346,9 @@
                 mouseLeaveDelay: null
             }),
             computed: {
+                quizLink() {
+                    return `quiz.jsp?category=${this.category}`;
+                },
                 mousePX() {
                     return this.mouseX / this.width;
                 },
