@@ -468,6 +468,19 @@
             }),
             computed: {
                 quizLink() {
+                    if (this.category === 'art') {
+                        return 'artquiz.jsp';
+                    }
+                    if (this.category === 'sports') {
+                        return 'sportquiz.jsp';
+                    }
+                    if (this.category === 'movies') {
+                        return 'moviequiz.jsp';
+                    }
+                    if (this.category === 'science') {
+                        return 'sciencequiz.jsp';
+                    }
+
                     return `quiz.jsp?category=${this.category}`;
                 },
                 mousePX() {
