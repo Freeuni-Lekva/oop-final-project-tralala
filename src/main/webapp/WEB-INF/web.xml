@@ -19,8 +19,6 @@
     <servlet-class>Controllers.managers.AccountCreationServlet</servlet-class>
   </servlet>
 
-
-
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
@@ -31,14 +29,7 @@
     <url-pattern>/AccountCreation</url-pattern>
   </servlet-mapping>
 
-  <context-param>
-    <param-name>AccountManager</param-name>
-    <param-value>Controllers.managers.AccountManager</param-value>
-  </context-param>
 
-  <listener>
-    <listener-class>Controllers.managers.AccountManagerListener</listener-class>
-  </listener>
 
   <context-param>
     <param-name>AccountManager</param-name>
@@ -48,4 +39,11 @@
   <listener>
     <listener-class>Controllers.managers.AccountManagerListener</listener-class>
   </listener>
+
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
 </web-app>

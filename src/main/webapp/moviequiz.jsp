@@ -167,134 +167,71 @@
     </style>
 </head>
 <body>
-    <jsp:scriptlet>
-        String category = request.getParameter("category");
-        String categoryName = "";
-        String categoryDescription = "";
-        
-        switch(category) {
-            case "art":
-                categoryName = "Art Quiz";
-                categoryDescription = "Test your knowledge about art and artists";
-                break;
-            case "sports":
-                categoryName = "Sports Quiz";
-                categoryDescription = "Test your knowledge about sports and athletes";
-                break;
-            case "science":
-                categoryName = "Science Quiz";
-                categoryDescription = "Test your knowledge about science and technology";
-                break;
-            case "movies":
-                categoryName = "Movies Quiz";
-                categoryDescription = "Test your knowledge about films and cinema";
-                break;
-            default:
-                categoryName = "Quiz";
-                categoryDescription = "Test your knowledge";
-        }
-    </jsp:scriptlet>
-
     <div class="quiz-container">
         <div class="category-header">
-            <h1><jsp:expression>categoryName</jsp:expression></h1>
-            <p><jsp:expression>categoryDescription</jsp:expression></p>
+            <h1>Movies Quiz</h1>
+            <p>Test your knowledge about cinema and films</p>
         </div>
 
-        <jsp:scriptlet>
-            String[] questions = new String[] {};
-            String[][] options = new String[][] {};
-            
-            switch(category) {
-                case "art":
-                    questions = new String[] {
-                        "Which artist painted the iconic Mona Lisa?",
-                        "Which artist is famous for his optical illusion artworks?",
-                        "Who created the famous painting 'The Starry Night'?",
-                        "Which artist painted 'The Persistence of Memory' (melting clocks)?",
-                        "Who created the expressionist masterpiece 'The Scream'?"
-                    };
-                    options = new String[][] {
-                        {"Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"},
-                        {"Salvador Dali", "M.C. Escher", "Pablo Picasso", "Jackson Pollock"},
-                        {"Vincent van Gogh", "Claude Monet", "Edgar Degas", "Pierre-Auguste Renoir"},
-                        {"Salvador Dali", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"},
-                        {"Vincent van Gogh", "Edvard Munch", "Pablo Picasso", "Leonardo da Vinci"}
-                    };
-                    break;
-                case "science":
-                    questions = new String[] {
-                        "What is the chemical symbol for gold?",
-                        "Which planet is known as the Red Planet?",
-                        "What is the hardest natural substance on Earth?",
-                        "What is the largest organ in the human body?",
-                        "What is the process by which plants make their food?"
-                    };
-                    options = new String[][] {
-                        {"Gd", "Au", "Ag", "Fe"},
-                        {"Venus", "Jupiter", "Mars", "Saturn"},
-                        {"Gold", "Iron", "Diamond", "Platinum"},
-                        {"Heart", "Brain", "Skin", "Liver"},
-                        {"Photosynthesis", "Respiration", "Digestion", "Circulation"}
-                    };
-                    break;
-                case "sports":
-                    questions = new String[] {
-                        "Which country won the FIFA World Cup 2022?",
-                        "In which sport would you perform a slam dunk?",
-                        "How many players are there in a standard soccer team on the field?",
-                        "Which country invented table tennis?",
-                        "What is the distance of a marathon race in kilometers?"
-                    };
-                    options = new String[][] {
-                        {"Brazil", "France", "Argentina", "Germany"},
-                        {"Football", "Basketball", "Volleyball", "Tennis"},
-                        {"9", "10", "11", "12"},
-                        {"China", "Japan", "England", "USA"},
-                        {"21.1", "32.2", "42.2", "50.0"}
-                    };
-                    break;
-                case "movies":
-                    questions = new String[] {
-                        "Who directed the movie 'Inception'?",
-                        "Which actor played Iron Man in the Marvel Cinematic Universe?",
-                        "What movie won the Academy Award for Best Picture in 2024?",
-                        "Which film franchise features a character named Luke Skywalker?",
-                        "Who played the role of Jack in the movie 'Titanic'?"
-                    };
-                    options = new String[][] {
-                        {"Steven Spielberg", "Christopher Nolan", "Martin Scorsese", "James Cameron"},
-                        {"Chris Evans", "Chris Hemsworth", "Robert Downey Jr.", "Mark Ruffalo"},
-                        {"Barbie", "Oppenheimer", "Poor Things", "The Holdovers"},
-                        {"Star Trek", "Star Wars", "Battlestar Galactica", "The Expanse"},
-                        {"Brad Pitt", "Leonardo DiCaprio", "Matt Damon", "Tom Cruise"}
-                    };
-                    break;
-                default:
-                    questions = new String[] {};
-                    options = new String[][] {};
-            }
-        </jsp:scriptlet>
-
-        <% if (questions != null && questions.length > 0) { %>
-            <% for(int i = 0; i < questions.length; i++) { %>
-                <div class="question <%= i == 0 ? "current" : "" %>">
-                    <div class="question-number">Question <%= i + 1 %></div>
-                    <div class="question-text"><%= questions[i] %></div>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][0] %></div>
-                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][1] %></div>
-                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][2] %></div>
-                        <div class="option" onclick="selectOption(this, <%= i %>)"><%= options[i][3] %></div>
-                    </div>
-                    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-                </div>
-            <% } %>
-        <% } else { %>
-            <div class="error-message">
-                <p>No questions available for this category</p>
+        <div class="question current">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">Which actor played Tony Stark/Iron Man in the Marvel Cinematic Universe?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 0)">Chris Evans</div>
+                <div class="option" onclick="selectOption(this, 0)">Robert Downey Jr.</div>
+                <div class="option" onclick="selectOption(this, 0)">Chris Hemsworth</div>
+                <div class="option" onclick="selectOption(this, 0)">Mark Ruffalo</div>
             </div>
-        <% } %>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Which movie won the Academy Award for Best Picture in 2020?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 1)">Parasite</div>
+                <div class="option" onclick="selectOption(this, 1)">Joker</div>
+                <div class="option" onclick="selectOption(this, 1)">1917</div>
+                <div class="option" onclick="selectOption(this, 1)">Once Upon a Time in Hollywood</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 3</div>
+            <div class="question-text">What is the name of the movie where Leonardo DiCaprio plays a dream thief who steals corporate secrets through the use of dream-sharing technology?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 2)">The Matrix</div>
+                <div class="option" onclick="selectOption(this, 2)">Inception</div>
+                <div class="option" onclick="selectOption(this, 2)">Interstellar</div>
+                <div class="option" onclick="selectOption(this, 2)">Shutter Island</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 4</div>
+            <div class="question-text">Which director won the Academy Award for Best Director for the film 'Green Book'?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 3)">Peter Farrelly</div>
+                <div class="option" onclick="selectOption(this, 3)">Alfonso Cuarón</div>
+                <div class="option" onclick="selectOption(this, 3)">Damien Chazelle</div>
+                <div class="option" onclick="selectOption(this, 3)">Spike Lee</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 5</div>
+            <div class="question-text">What is the name of the highest-grossing movie of all time (adjusted for inflation)?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Avatar</div>
+                <div class="option" onclick="selectOption(this, 4)">Star Wars</div>
+                <div class="option" onclick="selectOption(this, 4)">Titanic</div>
+                <div class="option" onclick="selectOption(this, 4)">Gone with the Wind</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
 
         <div class="full-quiz-button">
             <a href="login.jsp">Log In to Access Full Quiz</a>
@@ -303,7 +240,7 @@
 
     <script>
         let currentQuestion = 0;
-        let selectedOptions = Array(<%= questions.length %>).fill(null);
+        let selectedOptions = Array(5).fill(null);
         const questions = document.querySelectorAll('.question');
 
         function selectOption(optionElement, questionIndex) {

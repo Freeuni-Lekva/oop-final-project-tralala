@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Science Quiz - QuizMaster</title>
+    <title>Quiz - QuizMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Playfair+Display:700" rel="stylesheet">
     <style>
         :root {
@@ -13,16 +13,43 @@
             font-family: "Raleway";
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #121212;
+            background-image: url('https://wallpaper.dog/large/20419572.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background-color: rgba(30, 30, 30, 0.95);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f1f1f1;
+        }
+
+        .category-header h1 {
+            font-family: "Playfair Display";
+            font-size: 36px;
+            color: #f1f1f1;
+            margin: 0;
+        }
+
+        .category-header p {
+            color: #cccccc;
+            font-size: 18px;
+            margin: 10px 0 0;
         }
 
         .question {
@@ -30,58 +57,32 @@
             padding: 20px;
             border-radius: 8px;
             transition: all 0.3s ease;
-            display: none;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: #f1f1f1;
+            opacity: 0.7;
+            filter: blur(2px);
+            pointer-events: none;
         }
 
         .question.current {
-            background: white;
+            background-color: rgba(30, 30, 30, 0.95);
             transform: scale(1.02);
-            z-index: 1;
-            display: block;
-        }
-
-        .full-quiz-button {
-            margin-top: 30px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .full-quiz-button a {
-            display: inline-block;
-            padding: 15px 30px;
-            border-radius: 25px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .full-quiz-button a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .question:not(.current) {
-            filter: blur(2px);
-            opacity: 0.7;
-            pointer-events: none;
-            background: var(--blur-color);
+            opacity: 1;
+            filter: none;
+            pointer-events: all;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .question-number {
             font-size: 18px;
-            color: #666;
+            color: #cccccc;
             margin-bottom: 10px;
         }
 
         .question-text {
             font-size: 24px;
             font-weight: 600;
+            color: #f1f1f1;
             margin-bottom: 20px;
         }
 
@@ -93,15 +94,16 @@
 
         .option {
             padding: 15px 20px;
-            border: 2px solid #ddd;
+            border: 2px solid #444;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: #f1f1f1;
         }
 
         .option:hover {
-            background: #f8f9fa;
-            border-color: #ccc;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #666;
         }
 
         .option.selected {
@@ -120,131 +122,174 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background: #1976D2;
         }
 
         .next-btn.show {
             display: block;
         }
 
-        .category-header {
+        .full-quiz-button {
+            margin-top: 30px;
             text-align: center;
-            margin-bottom: 40px;
         }
 
-        .category-header h1 {
-            font-family: "Playfair Display";
-            font-size: 36px;
-            color: #333;
-            margin: 0;
+        .full-quiz-button a {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 25px;
+            background-color: #888;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .category-header p {
-            color: #666;
+        .full-quiz-button a:hover {
+            background-color: #666;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .error-message {
+            color: #ff4444;
+            text-align: center;
+            padding: 20px;
             font-size: 18px;
-            margin: 10px 0 0;
         }
     </style>
 </head>
 <body>
-    <jsp:scriptlet>
-        String[] questions = new String[] {
-            "What is the chemical symbol for gold?",
-            "Which planet is known as the Red Planet?",
-            "What is the speed of light in a vacuum?",
-            "What is the largest organ in the human body?",
-            "What gas makes up most of Earth's atmosphere?",
-            "What is the smallest unit of matter?",
-            "Which element has the highest atomic number?",
-            "What force keeps planets in orbit around the sun?",
-            "What is the process by which plants make their food?",
-            "What is the pH of pure water?"
-        };
-        String[][] options = new String[][] {
-            {"Au", "Ag", "Cu", "Fe"},
-            {"Mars", "Venus", "Jupiter", "Saturn"},
-            {"299,792 km/s", "300,000 km/s", "299,792,458 m/s", "300,000,000 m/s"},
-            {"Liver", "Skin", "Heart", "Lungs"},
-            {"Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"},
-            {"Atom", "Molecule", "Proton", "Neutron"},
-            {"Oganesson", "Radon", "Plutonium", "Uranium"},
-            {"Gravity", "Magnetism", "Electromagnetic Force", "Strong Nuclear Force"},
-            {"Respiration", "Fermentation", "Photosynthesis", "Osmosis"},
-            {"7", "6", "8", "9"}
-        };
-    </jsp:scriptlet>
-
-    <div class="category-header">
-        <h1>Science Quiz</h1>
-        <p>Test your knowledge about science and technology</p>
-    </div>
-
     <div class="quiz-container">
-        <% for(int i = 0; i < questions.length; i++) { %>
-            <div class="question <%= i == 0 ? "current" : "" %>">
-                <div class="question-number">Question <%= i + 1 %></div>
-                <div class="question-text"><%= questions[i] %></div>
-                <div class="options">
-                    <div class="option" onclick="selectOption(0)"><%= options[i][0] %></div>
-                    <div class="option" onclick="selectOption(1)"><%= options[i][1] %></div>
-                    <div class="option" onclick="selectOption(2)"><%= options[i][2] %></div>
-                    <div class="option" onclick="selectOption(3)"><%= options[i][3] %></div>
-                </div>
-                <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-                <% if (i == 0) { %>
-                    <div class="full-quiz-button">
-                        <a href="quiz.jsp?category=all" class="nav-button">See Full Quiz</a>
-                    </div>
-                <% } %>
+        <div class="category-header">
+            <h1>Science Quiz</h1>
+            <p>Test your knowledge about science and technology</p>
+        </div>
+
+        <div class="question current">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">What is the chemical symbol for gold?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 0)">Au</div>
+                <div class="option" onclick="selectOption(this, 0)">Ag</div>
+                <div class="option" onclick="selectOption(this, 0)">Fe</div>
+                <div class="option" onclick="selectOption(this, 0)">Cu</div>
             </div>
-        <% } %>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Which planet is known as the 'Red Planet'?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 1)">Mars</div>
+                <div class="option" onclick="selectOption(this, 1)">Jupiter</div>
+                <div class="option" onclick="selectOption(this, 1)">Saturn</div>
+                <div class="option" onclick="selectOption(this, 1)">Venus</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 3</div>
+            <div class="question-text">What is the speed of light in vacuum?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 2)">299,792,458 m/s</div>
+                <div class="option" onclick="selectOption(this, 2)">300,000,000 m/s</div>
+                <div class="option" onclick="selectOption(this, 2)">299,000,000 m/s</div>
+                <div class="option" onclick="selectOption(this, 2)">299,792,458 km/s</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 4</div>
+            <div class="question-text">What is the smallest unit of matter?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 3)">Atom</div>
+                <div class="option" onclick="selectOption(this, 3)">Molecule</div>
+                <div class="option" onclick="selectOption(this, 3)">Cell</div>
+                <div class="option" onclick="selectOption(this, 3)">Electron</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="question">
+            <div class="question-number">Question 5</div>
+            <div class="question-text">What gas makes up the majority of Earth's atmosphere?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Oxygen</div>
+                <div class="option" onclick="selectOption(this, 4)">Carbon Dioxide</div>
+                <div class="option" onclick="selectOption(this, 4)">Nitrogen</div>
+                <div class="option" onclick="selectOption(this, 4)">Helium</div>
+            </div>
+            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="full-quiz-button">
+            <a href="login.jsp">Log In to Access Full Quiz</a>
+        </div>
     </div>
 
     <script>
         let currentQuestion = 0;
-        let selectedOptions = Array(questions.length).fill(null);
+        let selectedOptions = Array(5).fill(null);
         const questions = document.querySelectorAll('.question');
 
-        function selectOption(index) {
-            if (!questions[currentQuestion].classList.contains('current')) return;
+        function selectOption(optionElement, questionIndex) {
+            if (!questions[questionIndex].classList.contains('current')) return;
             
-            const currentQuestionElement = questions[currentQuestion];
+            const currentQuestionElement = questions[questionIndex];
             const options = currentQuestionElement.querySelectorAll('.option');
             options.forEach(option => option.classList.remove('selected'));
-            options[index].classList.add('selected');
+            optionElement.classList.add('selected');
             
-            // Store the selected option
-            selectedOptions[currentQuestion] = index;
+            selectedOptions[questionIndex] = Array.from(options).indexOf(optionElement);
             
-            // Show next button
             const nextBtn = currentQuestionElement.querySelector('.next-btn');
             nextBtn.classList.add('show');
         }
 
         function nextQuestion() {
-            // Get current question
             const currentQuestionElement = questions[currentQuestion];
             currentQuestionElement.classList.remove('current');
 
-            // Get next question
             currentQuestion++;
             if (currentQuestion < questions.length) {
                 const nextQuestionElement = questions[currentQuestion];
                 nextQuestionElement.classList.add('current');
                 
-                // Add See Full Quiz button after second question
-                const fullQuizButton = document.createElement('div');
-                fullQuizButton.className = 'full-quiz-button';
-                fullQuizButton.innerHTML = '<a href="quiz.jsp?category=all" class="nav-button">See Full Quiz</a>';
-                nextQuestionElement.appendChild(fullQuizButton);
-                
-                // Reset next button
                 const nextBtn = nextQuestionElement.querySelector('.next-btn');
                 nextBtn.classList.remove('show');
+
+                if (selectedOptions[currentQuestion] !== null) {
+                    const options = nextQuestionElement.querySelectorAll('.option');
+                    options[selectedOptions[currentQuestion]].classList.add('selected');
+                    nextBtn.classList.add('show');
+                }
             } else {
-                // Quiz completed
                 alert('Quiz completed!');
+                window.location.href = 'login.jsp';
             }
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (questions.length > 0) {
+                questions[0].classList.add('current');
+                if (selectedOptions[0] !== null) {
+                    const options = questions[0].querySelectorAll('.option');
+                    options[selectedOptions[0]].classList.add('selected');
+                    questions[0].querySelector('.next-btn').classList.add('show');
+                }
+            }
+        });
     </script>
 </body>
 </html>
