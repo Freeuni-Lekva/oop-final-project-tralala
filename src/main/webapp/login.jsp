@@ -4,25 +4,53 @@
 <head>
     <title>Login - QuizMaster</title>
     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #f1f1f1;
+            --box-bg: rgba(30, 30, 30, 0.9);
+            --input-bg: #222;
+            --input-border: #666;
+            --button-bg: #888;
+            --button-hover: #666;
+            --link-color: #bbbbff;
+        }
+
+        body.light-mode {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --box-bg: rgba(255, 255, 255, 0.3);
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --button-bg: #4CAF50;
+            --button-hover: #45a049;
+            --link-color: #0000ff;
+            background-image: url('https://i.pinimg.com/736x/77/62/47/776247f038d2bdc9b240a4d08f8670ca.jpg');
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
+            background-color: var(--bg-color);
             background-image: url('https://wallpaper.dog/large/20419572.jpg');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            -webkit-font-smoothing: antialiased;
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: var(--text-color);
+            transition: background-image 0.3s ease;
         }
 
         .login-box {
-            background-color: rgba(30, 30, 30, 0.9);
+            background-color: var(--box-bg);
             padding: 30px 40px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             width: 350px;
+            transition: background-color 0.3s ease;
         }
 
         .login-box h2 {
@@ -92,9 +120,19 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        // Apply theme from localStorage
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+            }
+        };
+    </script>
 </head>
 <body>
 <div class="login-box">
+
     <h2>Login to QuizMaster</h2>
     <form action="/Login" method="post">
         <div class="form-group">

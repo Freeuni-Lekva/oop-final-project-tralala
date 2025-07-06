@@ -46,6 +46,7 @@ public class AccountManager {
      * @return true if the account exists, false otherwise
      */
     public boolean accountExists(String username) {
+
         return accountDAO.readAccount(username) != null;
     }
 

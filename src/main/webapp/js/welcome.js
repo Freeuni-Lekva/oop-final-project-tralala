@@ -1,0 +1,110 @@
+$(document).ready(function() {
+    // Get all slides and navigation buttons
+    var $slides = $('.slide');
+    var $navButtons = $('nav a');
+    var totalSlides = $slides.length;
+    var currentSlide = 0;
+    var isAnimating = false;
+
+    // Settings menu toggle
+    $('.settings-btn').click(function(e) {
+        e.stopPropagation();
+        $('.slide-out-menu').toggleClass('active');
+    });
+
+    // Close menu when clicking outside
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.settings-btn, .slide-out-menu').length) {
+            $('.slide-out-menu').removeClass('active');
+        }
+    });
+
+    // Prevent closing when clicking inside menu
+    $('.slide-out-menu').click(function(e) {
+        e.stopPropagation();
+    });
+
+    // Menu item clicks
+    $('.menu-item').click(function(e) {
+        e.preventDefault();
+        $('.slide-out-menu').removeClass('active');
+    });
+
+    // Initialize first slide
+    $slides.first().addClass('active');
+    $navButtons.first().addClass('active');
+
+    // Navigation click handler
+    $navButtons.click(function(e) {
+        e.preventDefault();
+        var target = $(this).attr('href');
+        var index = parseInt(target.replace('#slide-', '')) - 1;
+        
+        if (index >= 0 && index < totalSlides) {
+            changeSlide(index);
+        }
+    });
+
+    // Previous/Next click handlers
+    $('.go-prev').click(function() {
+        changeSlide(currentSlide - 1);
+    });
+
+    $('.go-next').click(function() {
+        changeSlide(currentSlide + 1);
+    });
+
+    // Mouse wheel handler
+    $(window).on('wheel', function(e) {
+        if (isAnimating) return;
+        
+        if (e.originalEvent.deltaY > 0) {
+            changeSlide(currentSlide + 1);
+        } else {
+            changeSlide(currentSlide - 1);
+        }
+    });
+
+    // Keyboard navigation
+    $(document).keydown(function(e) {
+        if (isAnimating) return;
+        
+        // Left arrow (37) and Up arrow (38) go to previous slide
+        if (e.which === 37 || e.which === 38) {
+            changeSlide(currentSlide - 1);
+        }
+        // Right arrow (39) and Down arrow (40) go to next slide
+        else if (e.which === 39 || e.which === 40) {
+            changeSlide(currentSlide + 1);
+        }
+    });
+
+    function changeSlide(index) {
+        if (isAnimating) return;
+        
+        // Handle wrapping around
+        if (index < 0) {
+            index = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            index = 0;
+        }
+
+        if (index !== currentSlide) {
+            isAnimating = true;
+            
+            // Update current slide index
+            currentSlide = index;
+            
+            // Update active slide with fade animation
+            $slides.removeClass('active').eq(index).addClass('active');
+            
+            // Update active navigation
+            $navButtons.removeClass('active').eq(index).addClass('active');
+            
+            // Reset animation flag after a short delay
+            setTimeout(function() {
+                isAnimating = false;
+            }, 500);
+        }
+    }
+});
