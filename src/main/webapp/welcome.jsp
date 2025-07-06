@@ -40,36 +40,36 @@
                             </div>
                         </div>
                         <div class="menu-items">
-                            <a href="#" class="menu-item">
+                            <button onclick="location.href='set-status.jsp'" class="menu-item">
                                 <svg class="menu-icon" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                                 </svg>
                                 <span>Set Status</span>
-                            </a>
-                            <a href="#" class="menu-item">
+                            </button>
+                            <button onclick="location.href='profile'" class="menu-item">
                                 <svg class="menu-icon" viewBox="0 0 24 24">
                                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                                 </svg>
                                 <span>Your Profile</span>
-                            </a>
-                            <a href="edit-profile.jsp" class="menu-item">
+                            </button>
+                            <button onclick="location.href='edit-profile.jsp'" class="menu-item">
                                 <svg class="menu-icon" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                                 </svg>
                                 <span>Edit Profile</span>
-                            </a>
-                            <a href="#" class="menu-item">
+                            </button>
+                            <button onclick="location.href='logout.jsp'" class="menu-item">
                                 <svg class="menu-icon" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                                 </svg>
                                 <span>Log Out</span>
-                            </a>
-                            <a href="#" class="menu-item delete-account">
+                            </button>
+                            <button onclick="confirmDeleteAccount()" class="menu-item delete-account">
                                 <svg class="menu-icon" viewBox="0 0 24 24">
                                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                                 </svg>
                                 <span>Delete Account</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
