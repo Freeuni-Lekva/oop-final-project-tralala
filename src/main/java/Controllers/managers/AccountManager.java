@@ -112,4 +112,3 @@ public class AccountManager {
         return account.isAdmin();
     }
 }
-
