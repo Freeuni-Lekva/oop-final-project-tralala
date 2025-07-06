@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quiz - QuizMaster</title>
+    <title><c:out value="${quiz.title}" /> - QuizMaster</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Playfair+Display:700" rel="stylesheet">
     <style>
         :root {
@@ -169,69 +169,32 @@
 <body>
     <div class="quiz-container">
         <div class="category-header">
-            <h1>Art Quiz</h1>
-            <p>Test your knowledge about art and artists</p>
+            <h1><c:out value="${quiz.title}" /></h1>
+            <p><c:out value="${quiz.description}" /></p>
         </div>
 
-        <div class="question current">
-            <div class="question-number">Question 1</div>
-            <div class="question-text">Which artist painted the iconic Mona Lisa?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 0)">Vincent van Gogh</div>
-                <div class="option" onclick="selectOption(this, 0)">Leonardo da Vinci</div>
-                <div class="option" onclick="selectOption(this, 0)">Pablo Picasso</div>
-                <div class="option" onclick="selectOption(this, 0)">Michelangelo</div>
-            </div>
-            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div class="question">
-            <div class="question-number">Question 2</div>
-            <div class="question-text">Which artist is famous for his optical illusion artworks?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 1)">Salvador Dali</div>
-                <div class="option" onclick="selectOption(this, 1)">M.C. Escher</div>
-                <div class="option" onclick="selectOption(this, 1)">Pablo Picasso</div>
-                <div class="option" onclick="selectOption(this, 1)">Jackson Pollock</div>
-            </div>
-            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div class="question">
-            <div class="question-number">Question 3</div>
-            <div class="question-text">Who created the famous painting 'The Starry Night'?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 2)">Vincent van Gogh</div>
-                <div class="option" onclick="selectOption(this, 2)">Claude Monet</div>
-                <div class="option" onclick="selectOption(this, 2)">Edgar Degas</div>
-                <div class="option" onclick="selectOption(this, 2)">Pierre-Auguste Renoir</div>
-            </div>
-            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div class="question">
-            <div class="question-number">Question 4</div>
-            <div class="question-text">Which artist painted 'The Persistence of Memory' (melting clocks)?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 3)">Salvador Dali</div>
-                <div class="option" onclick="selectOption(this, 3)">Pablo Picasso</div>
-                <div class="option" onclick="selectOption(this, 3)">Vincent van Gogh</div>
-                <div class="option" onclick="selectOption(this, 3)">Claude Monet</div>
-            </div>
-            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-
-        <div class="question">
-            <div class="question-number">Question 5</div>
-            <div class="question-text">Who created the expressionist masterpiece 'The Scream'?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Vincent van Gogh</div>
-                <div class="option" onclick="selectOption(this, 4)">Edvard Munch</div>
-                <div class="option" onclick="selectOption(this, 4)">Pablo Picasso</div>
-                <div class="option" onclick="selectOption(this, 4)">Leonardo da Vinci</div>
-            </div>
-            <button class="next-btn" onclick="nextQuestion()">Next Question</button>
-        </div>
+        <form action="quiz" method="post">
+            <input type="hidden" name="category" value="${quiz.category}">
+            
+            <c:forEach var="question" items="${quiz.questions}" varStatus="status">
+                <div class="question ${status.index == 0 ? 'current' : ''}">
+                    <div class="question-number">Question ${status.count}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options">
+                        <c:forEach var="option" items="${question.options}" varStatus="optionStatus">
+                            <div class="option" onclick="selectOption(this, ${status.index})">
+                                ${option}
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <button class="next-btn" onclick="nextQuestion()">Next Question</button>
+                </div>
+            </c:forEach>
+            <c:if test="${empty quiz.questions}">
+                <div class="error-message">
+                    <p>No questions available for this category</p>
+                </div>
+            </c:if>
 
         <div class="full-quiz-button">
             <a href="login.jsp">Log In to Access Full Quiz</a>
@@ -240,7 +203,7 @@
 
     <script>
         let currentQuestion = 0;
-        let selectedOptions = Array(5).fill(null);
+        let selectedOptions = [];
         const questions = document.querySelectorAll('.question');
 
         function selectOption(optionElement, questionIndex) {
