@@ -1,4 +1,25 @@
 $(document).ready(function() {
+    // Get the create quiz button container
+    var $createQuizContainer = $('.create-quiz-container');
+    
+    // Hide the button initially
+    $createQuizContainer.hide();
+    
+    // Function to update button visibility
+    function updateButtonVisibility() {
+        if (currentSlide === 2) { // Slide 3 (index 2)
+            $createQuizContainer.show();
+        } else {
+            $createQuizContainer.hide();
+        }
+    }
+    
+    // Add click handler for create quiz button
+    $('.create-quiz-btn').click(function(e) {
+        console.log('Create quiz button clicked!');
+        window.location.href = '/create-quiz.jsp';
+        e.preventDefault();
+    });
     // Get all slides and navigation buttons
     var $slides = $('.slide');
     var $navButtons = $('nav a');
@@ -39,6 +60,12 @@ $(document).ready(function() {
         e.preventDefault();
         var target = $(this).attr('href');
         var index = parseInt(target.replace('#slide-', '')) - 1;
+        
+        // Add console logging
+        console.log('Navigation clicked:', target);
+        if (index === 2) {
+            console.log('Quiz News slide clicked!');
+        }
         
         if (index >= 0 && index < totalSlides) {
             changeSlide(index);
@@ -100,6 +127,9 @@ $(document).ready(function() {
             
             // Update active navigation
             $navButtons.removeClass('active').eq(index).addClass('active');
+            
+            // Update button visibility
+            updateButtonVisibility();
             
             // Reset animation flag after a short delay
             setTimeout(function() {

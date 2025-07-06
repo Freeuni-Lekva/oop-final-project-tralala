@@ -7,6 +7,7 @@
     <welcome-file>solar_system.html</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
+    <welcome-file>create-quiz.jsp</welcome-file>
   </welcome-file-list>
 
 

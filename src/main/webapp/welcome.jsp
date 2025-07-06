@@ -82,6 +82,7 @@
             <li><a href="#slide-2">Announcements</a></li>
             <li><a href="#slide-3">Quiz news</a></li>
             <li><a href="#slide-4">Notifications</a></li>
+            <li><a href="/create-quiz.jsp">Create Quiz</a></li>
         </ul>
     </nav>
 
@@ -100,8 +101,8 @@
         </div>
         <div class="slide" id="slide-3">
             <div class="centered">
-                <h1>Use mouse wheel</h1>
-                <p>No, really. Try to scroll up and down with the mouse wheel to switch between slides.</p>
+                <h1>Quiz News</h1>
+                <p>Explore the latest quizzes and create your own!</p>
             </div>
         </div>
         <div class="slide" id="slide-4">
@@ -112,6 +113,13 @@
         </div>
     </div>
 
+    <div class="create-quiz-container">
+        <a href="/create-quiz.jsp" class="create-quiz-btn">
+            Create your own quiz
+        </a>
+    </div>
+
     <script src="js/welcome.js"></script>
+
 </body>
 </html>
