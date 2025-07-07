@@ -25,7 +25,7 @@ public class ProfileServlet extends HttpServlet {
         
         if (currentUser == null) {
             // If user is not logged in, redirect to login page
-            response.sendRedirect("Profile.jsp");
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -40,7 +40,6 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("userName", currentUser.getUserName());
         request.setAttribute("email", currentUser.getEmail());
         request.setAttribute("imageUrl", currentUser.getImageUrl());
-        request.setAttribute("isAdmin", currentUser.isAdmin());
         
         // Forward to the profile view
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("Profile.jsp");
@@ -52,11 +51,7 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         AccountManager accountManager = (AccountManager) getServletContext().getAttribute(AccountManager.ATTRIBUTE_NAME);
         
-        // Debugging - print session attributes
-        System.out.println("ProfileServlet session attributes:");
-        System.out.println("Username: " + request.getSession().getAttribute("username"));
-        System.out.println("Account: " + request.getSession().getAttribute("account"));
-        System.out.println("LoggedInAccount: " + request.getSession().getAttribute("loggedInAccount"));
+
         
         // Get the current user from session
         Account currentUser = (Account) request.getSession().getAttribute("loggedInAccount");
