@@ -36,10 +36,10 @@
 
         h1 {
             text-align: center;
-            color: #f14444;
-            font-size: 18px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(241, 68, 68, 0.3);
+            color: #f1f1f1;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
         }
 
         .error-message {
@@ -47,7 +47,7 @@
             margin-bottom: 20px;
             font-size: 14px;
         }
-        .link {
+        .create-link {
             color: #b497ff;
             font-size: 13px;
             text-decoration: none;
@@ -55,11 +55,10 @@
             margin-top: 15px;
         }
 
-        .link:hover {
+        .create-link:hover {
             color: #d0bcff;
             text-decoration: underline;
         }
-
         input[type="text"],
         input[type="username"],
         input[type="password"] {
@@ -72,10 +71,6 @@
             color: #f1f1f1;
             box-sizing: border-box;
             margin-bottom: 15px;
-        }
-
-        input:focus {
-            border-color: #888;
         }
 
         input[type="submit"] {
@@ -113,25 +108,25 @@
 
 <div class="container">
 
-<h1>Please Try Again</h1>
+    <h1>Please Try Again</h1>
 
 
-    <p class="error-message">Either your username or password is incorrect. Please try again.</p>
+    <p class="error-message">Either your username or password is incorrect.</p>
 
     <div class="form-container">
-    <form action="Login" method="post">
-        <label>Username:</label>
-        <input type="text" name="username"/>
+        <form action="Login" method="post">
+            <label>Username:</label>
+            <input type="text" name="username"/>
 
-        <label>Password:</label>
-        <input type="password" name="password"/>
+            <label>Password:</label>
+            <input type="password" name="password"/>
 
-        <input type="submit" value="Login"/>
-    </form>
-</div>
+            <input type="submit" value="Login"/>
+        </form>
+    </div>
 
-<br>
-    <a class="link" href="create_new.jsp">Create New Account</a>
+    <br>
+    <a class="create-link" href="create_new.jsp">Create New Account</a>
 </div>
 </body>
 </html>
