@@ -80,43 +80,38 @@
         <ul>
             <li><a href="#slide-1">My activities</a></li>
             <li><a href="#slide-2">Announcements</a></li>
-            <li><a href="#slide-3">Quiz news</a></li>
-            <li><a href="#slide-4">Notifications</a></li>
-            <li><a href="/create-quiz.jsp">Create Quiz</a></li>
+            <li><a href="#slide-3">Notifications</a></li>
+            <li><a href="#slide-4">Quiz news</a></li>
         </ul>
     </nav>
 
     <div class="slides-container">
         <div class="slide" id="slide-1">
             <div class="centered">
-                <h1>Fullscreen slides with GSAP</h1>
-                <p>Let's go to the <span class="go-next">next slide</span>.</p>
+                <h1>My Activities</h1>
+                <div class="button-container">
+                    <a href="/create-quiz.jsp" class="quiz-button">
+                        Create your own quiz
+                    </a>
+                </div>
             </div>
         </div>
         <div class="slide" id="slide-2">
             <div class="centered">
-                <h1>It is so easy to navigate through slides</h1>
-                <p>You can go back to <span class="go-prev">previous slide</span> or go to the <span class="go-next">next slide</span>.</p>
+                <h1>Announcements</h1>
             </div>
         </div>
         <div class="slide" id="slide-3">
+            <div class="centered">
+                <h1>Notifications</h1>
+            </div>
+        </div>
+        <div class="slide" id="slide-4">
             <div class="centered">
                 <h1>Quiz News</h1>
                 <p>Explore the latest quizzes and create your own!</p>
             </div>
         </div>
-        <div class="slide" id="slide-4">
-            <div class="centered">
-                <h1>... Or use keyboard arrows</h1>
-                <p>You go to previous and next slide, using up and down keyboard arrows.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="create-quiz-container">
-        <a href="/create-quiz.jsp" class="create-quiz-btn">
-            Create your own quiz
-        </a>
     </div>
 
     <script src="js/welcome.js"></script>

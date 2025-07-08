@@ -199,27 +199,57 @@ body {
     color: #e74c3c;
 }
 
-.create-quiz-btn {
+.quiz-button {
     display: inline-block;
-    padding: 12px 24px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 15px 30px;
+    background-color: #333333;  /* Dark gray */
+    color: white;  /* White text for contrast */
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.quiz-button:hover {
+    background-color: #2d2d2d;  /* Slightly darker gray */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.quiz-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #404040;  /* Active state dark gray */
 }
 
 .create-quiz-btn:hover {
     background-color: #45a049;
 }
 
-.create-quiz-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+.button-container {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.quiz-button {
+    position: relative;
+    z-index: 1;
 }
 
 .menu-item.delete-account:hover {
@@ -391,7 +421,7 @@ nav a {
 }
 
 nav a.active {
-    background-color: #69C773;
+    background-color: #333333;  /* Dark gray */
     color: #FFFFFF;
 }
 
@@ -435,8 +465,26 @@ nav a.active {
 }
 
 .slide:nth-child(1) {
-    background-color: #FFFFFF;
+    background-color: hsl(200, 39%, 26%);  /* Light pastel green */
     color: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide:nth-child(1):before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(201, 141, 196, 0.1) 0%, rgba(201, 141, 196, 0.05) 100%);
+    z-index: 0;
+}
+
+.slide:nth-child(1) .centered {
+    position: relative;
+    z-index: 1;
 }
 
 .slide:nth-child(2) {
