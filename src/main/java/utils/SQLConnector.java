@@ -17,7 +17,7 @@ public class SQLConnector {
         dataSource = new BasicDataSource();
         dataSource.setUrl(URL);
         dataSource.setUsername(USERNAME);
-        dataSource.setPassword(PASSWORD);
+        dataSource.setPassword(PASSWORD);   
     }
 
     public static Connection getConnection() throws SQLException {

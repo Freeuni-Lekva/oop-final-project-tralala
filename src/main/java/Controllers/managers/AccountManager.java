@@ -92,9 +92,9 @@ public class AccountManager {
      //   return new ArrayList<>();
    // }
 
-   // public List<Account> getAccounts() throws SQLException {
-  //      return accountDAO.getAllAccounts();
-  //  }
+    public List<Account> getAccounts() throws SQLException {
+       return accountDAO.getAllAccounts();
+    }
 
     public boolean deleteAccount(String username){
         return accountDAO.deleteAccount(username);
