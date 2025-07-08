@@ -37,15 +37,16 @@ public class AccountsDao {
      * @param account the Account object containing the account details.
      */
     public void createAccount(Account account) {
-        String query = "INSERT INTO Accounts (username, firstName, lastName, password, email, imageUrl, salt, isAdmin, achievementIds) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Accounts (userName, firstName, lastName, password, email, imageUrl, salt, achievementIds, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             setStatement(account, statement);
-            statement.setBoolean(8, account.isAdmin());
+            statement.setBoolean(9, account.isAdmin());
             account.setAchievementIds(new HashSet<>());
-            statement.setString(9, new Gson().toJson(account.getAchievementIds()));
-            statement.executeUpdate();
+            statement.setString(8, new Gson().toJson(account.getAchievementIds()));
+            int rows = statement.executeUpdate();
+            System.out.printf("rows affected: %d\n", rows);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,7 +66,7 @@ public class AccountsDao {
 
     public Account readAccount(String username) {
         List<String> friends = new ArrayList<>();
-        String query = "SELECT * FROM Accounts WHERE username = ?";
+        String query = "SELECT * FROM Accounts WHERE userName = ?";
         String queryFriends = "SELECT usernameFrom, usernameTo FROM Friends WHERE (usernameFrom = ? OR usernameTo = ?) AND isAccepted = TRUE";
         Account account = null;
         try (Connection connection = dataSource.getConnection();
@@ -75,7 +76,7 @@ public class AccountsDao {
             statement.setString(1, username);
             statementFriends.setString(1, username);
             statementFriends.setString(2, username);
-           try (ResultSet resultSet = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery();
                  ResultSet resultSetFriends = statementFriends.executeQuery()) {
                 if (resultSet.next()) {
                     account = new Account(
@@ -112,7 +113,7 @@ public class AccountsDao {
 
 
     public void updateAccount(Account account) {
-        String query = "UPDATE Accounts SET username = ?, firstName = ?, lastName = ?, password = ?, email = ?, imageUrl = ?, salt = ?, achievementIds = ?, isAdmin = ? WHERE username = ?";
+        String query = "UPDATE Accounts SET userName = ?, firstName = ?, lastName = ?, password = ?, email = ?, imageUrl = ?, salt = ?, achievementIds = ?, isAdmin = ? WHERE userName = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             setStatement(account, statement);
@@ -126,7 +127,7 @@ public class AccountsDao {
     }
 
     public boolean deleteAccount(String username) {
-        String query = "DELETE FROM Accounts WHERE username = ?";
+        String query = "DELETE FROM Accounts WHERE userName = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
@@ -137,25 +138,6 @@ public class AccountsDao {
         }
         return false;
     }
-
- /*   public List<Quiz> getAllQuizzes(String username) throws SQLException {
-        ArrayList<Quiz> quizzes = new ArrayList<>();
-        String query = "SELECT * FROM QUIZ WHERE username = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, username);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                QuizDAO quizDAO = new QuizDAO(dataSource);
-                while (resultSet.next()) {
-                    Quiz quiz = quizDAO.readQuiz(resultSet.getInt("quizId"));
-                    quizzes.add(quiz);
-                }
-            }
-
-        }
-        return quizzes;
-    }*/
-
 
     public List<Account> getAllAccounts() throws SQLException {
         List<Account> accounts = new ArrayList<>();
