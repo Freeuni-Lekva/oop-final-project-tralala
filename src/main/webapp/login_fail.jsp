@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,7 +24,7 @@
             padding: 20px 25px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            width: 300px;
+            width: 340px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
         }
@@ -59,18 +60,61 @@
             color: #d0bcff;
             text-decoration: underline;
         }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
         input[type="text"],
         input[type="username"],
         input[type="password"] {
             width: 100%;
-            padding: 8px;
+            padding: 14px;
             border: 1px solid #666;
-            border-radius: 4px;
-            font-size: 13px;
+            border-radius: 6px;
+            font-size: 16px;
             background-color: #222;
             color: #f1f1f1;
             box-sizing: border-box;
+            margin-bottom: 18px;
+        }
+
+        .password-container input[type="password"],
+        .password-container input[type="text"] {
+            padding-right: 35px;
             margin-bottom: 15px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 38%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            line-height: 1;
+            height: 16px;
+            width: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #999;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s ease;
+        }
+
+        .eye-icon:hover svg {
+            stroke: #ccc;
         }
 
         input[type="submit"] {
@@ -110,7 +154,6 @@
 
     <h1>Please Try Again</h1>
 
-
     <p class="error-message">Either your username or password is incorrect.</p>
 
     <div class="form-container">
@@ -119,7 +162,15 @@
             <input type="text" name="username"/>
 
             <label>Password:</label>
-            <input type="password" name="password"/>
+            <div class="password-container">
+                <input type="password" name="password" id="password"/>
+                <span class="eye-icon" onclick="togglePassword()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                        <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                </span>
+            </div>
 
             <input type="submit" value="Login"/>
         </form>
@@ -128,5 +179,31 @@
     <br>
     <a class="create-link" href="create_new.jsp">Create New Account</a>
 </div>
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.querySelector('.eye-icon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.innerHTML = `
+            <svg viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        `;
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.innerHTML = `
+            <svg viewBox="0 0 24 24">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+        `;
+        }
+    }
+</script>
+
 </body>
 </html>
