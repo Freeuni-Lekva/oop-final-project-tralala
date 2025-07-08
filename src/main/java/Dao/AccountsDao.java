@@ -75,7 +75,7 @@ public class AccountsDao {
             statement.setString(1, username);
             statementFriends.setString(1, username);
             statementFriends.setString(2, username);
-            try (ResultSet resultSet = statement.executeQuery();
+           try (ResultSet resultSet = statement.executeQuery();
                  ResultSet resultSetFriends = statementFriends.executeQuery()) {
                 if (resultSet.next()) {
                     account = new Account(
@@ -138,23 +138,23 @@ public class AccountsDao {
         return false;
     }
 
-//    public List<Quiz> getAllQuizzes(String username) throws SQLException {
-//        ArrayList<Quiz> quizzes = new ArrayList<>();
-//        String query = "SELECT * FROM QUIZ WHERE username = ?";
-//        try (Connection connection = dataSource.getConnection();
-//             PreparedStatement statement = connection.prepareStatement(query)) {
-//            statement.setString(1, username);
-//            try (ResultSet resultSet = statement.executeQuery()) {
-//                QuizDAO quizDAO = new QuizDAO(dataSource);
-//                while (resultSet.next()) {
-//                    Quiz quiz = quizDAO.readQuiz(resultSet.getInt("quizId"));
-//                    quizzes.add(quiz);
-//                }
-//            }
-//
-//        }
-//        return quizzes;
-   // }
+ /*   public List<Quiz> getAllQuizzes(String username) throws SQLException {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+        String query = "SELECT * FROM QUIZ WHERE username = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                QuizDAO quizDAO = new QuizDAO(dataSource);
+                while (resultSet.next()) {
+                    Quiz quiz = quizDAO.readQuiz(resultSet.getInt("quizId"));
+                    quizzes.add(quiz);
+                }
+            }
+
+        }
+        return quizzes;
+    }*/
 
 
     public List<Account> getAllAccounts() throws SQLException {

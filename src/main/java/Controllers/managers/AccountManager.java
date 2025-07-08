@@ -2,7 +2,7 @@ package Controllers.managers;
 
 import Dao.AccountsDao;
 import Models.Account;
-
+//import Models.LeaderboardEntry;
 import Models.passwordHasher;
 //import Models.Quiz;
 import utils.SQLConnector;
@@ -46,7 +46,6 @@ public class AccountManager {
      * @return true if the account exists, false otherwise
      */
     public boolean accountExists(String username) {
-
         return accountDAO.readAccount(username) != null;
     }
 
@@ -86,16 +85,16 @@ public class AccountManager {
     }
 
     //public List<LeaderboardEntry> getLeaderboard() {
-     //   return new ArrayList<>();
-    //}
-
-    //public List<Quiz> getNewQuizzes() {
     //    return new ArrayList<>();
-    //}
+   // }
 
-    public List<Account> getAccounts() throws SQLException {
-        return accountDAO.getAllAccounts();
-    }
+   // public List<Quiz> getNewQuizzes() {
+     //   return new ArrayList<>();
+   // }
+
+   // public List<Account> getAccounts() throws SQLException {
+  //      return accountDAO.getAllAccounts();
+  //  }
 
     public boolean deleteAccount(String username){
         return accountDAO.deleteAccount(username);
@@ -112,3 +111,4 @@ public class AccountManager {
         return account.isAdmin();
     }
 }
+

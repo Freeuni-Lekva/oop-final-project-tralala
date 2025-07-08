@@ -18,8 +18,8 @@
   </servlet>
 
   <servlet>
-    <servlet-name>AccountCreation</servlet-name>
-    <servlet-class>Controllers.managers.AccountCreationServlet</servlet-class>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>Controllers.RegistrationServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -28,8 +28,8 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>AccountCreation</servlet-name>
-    <url-pattern>/AccountCreation</url-pattern>
+    <servlet-name>Registration</servlet-name>
+    <url-pattern>/RegistrationServlet</url-pattern>
   </servlet-mapping>
 
 
@@ -40,7 +40,7 @@
   </context-param>
 
   <listener>
-    <listener-class>Controllers.managers.AccountManagerListener</listener-class>
+    <listener-class>Controllers.Listeners.AccountListener</listener-class>
   </listener>
 
   <jsp-config>
