@@ -1,12 +1,12 @@
 CREATE TABLE QuizHistoryData (
                              id INT AUTO_INCREMENT PRIMARY KEY,
-                             quizId INT NOT NULL,
-                             username VARCHAR(255) NOT NULL,
+                             quizID INT NOT NULL,
+                             userName VARCHAR(255) NOT NULL,
                              quizScore INT DEFAULT 0,
                              startTime TIME,
                              endTime TIME,
                              endDate DATE,
                              elapsedTime BIGINT DEFAULT 0,
-                             FOREIGN KEY (quizId) REFERENCES Quiz(quizId) ON DELETE CASCADE,
-                             FOREIGN KEY (username) REFERENCES Accounts(username) ON DELETE CASCADE
+                             FOREIGN KEY (quizID) REFERENCES QuizData(quizID) ON DELETE CASCADE,
+                             FOREIGN KEY (userName) REFERENCES AccountsData(userName) ON DELETE CASCADE
 );
