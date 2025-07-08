@@ -1,80 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="Models.Account" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/ProfilePage.css">
-    <link rel="stylesheet" href="./css/NavBar.css">
     <title>Edit Profile</title>
-    <link rel="icon" href="./assets/Logo.png">
-    <%--    <link rel="stylesheet" href="./css/StartPage.css">--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-form {
+            margin-top: 30px;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .profile-header p {
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-<header class="animate__animated">
-    <div class="logo-area">
-        <a href="/HomePageServlet">
-            <img src="./assets/Logo.png" alt="Logo">
-        </a>    
-        <span class="website-name">Q<span class="u">u</span><span class="i">i</span>zzz</span>
-    </div>
-    <div class="nav-bar">
-        <ul>
-            <li><a href="/HomePageServlet">Quizzes</a></li>
-            <li><a href="/ProfileServlet">Profile</a></li>
-            <li><a href="/LogoutServlet">Logout</a></li>
-        </ul>
-    </div>
-</header>
-
-<div class="container">
-    <form class="form" action="/ProfileServlet" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="_method" value="put">
-        <div class="form-inner animate__animated animate__zoomIn">
-
-            <div class="profile-picture-container">
-                <img src="<%= ((Account) request.getAttribute("account")).getImageUrl() %>" alt="Profile Picture"
-                     class="profile-picture">
-                <div class="file-input-container">
-                    <span>Upload Image</span>
-                    <input type="file" name="image" accept="image/*">
-                </div>
-            </div>
-            <div class="profile-info">
-                <h2>Edit Profile</h2>
-                <p><strong>Username:</strong> <%= ((Account) request.getAttribute("account")).getUserName() %>
-                </p>
-                <div class="card-input">
-                    <label for="firstName">First name</label>
-                    <input type="text" id="firstName" name="firstName"
-                           value="<%= ((Account) request.getAttribute("account")).getFirstName() %>"/>
-                </div>
-                <div class="card-input">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName"
-                           value="<%= ((Account) request.getAttribute("account")).getLastName() %>"/>
-                </div>
-                <div class="card-input">
-                    <label for="email"> Email </label>
-                    <input type="email" id="email" name="email"
-                           value="<%= ((Account) request.getAttribute("account")).getEmail() %>"/>
-                </div>
-            </div>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Edit Profile</h2>
+            <p>Update your personal information</p>
         </div>
+        
+        <form class="profile-form" action="EditProfileServlet" method="POST">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+            </div>
+            
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+        </form>
+    </div>
 
-        <button type="submit">Update Profile</button>
-    </form>
-</div>
-
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
