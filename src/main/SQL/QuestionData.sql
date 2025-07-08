@@ -1,4 +1,4 @@
-CREATE TABLE QuestionData (
+CREATE TABLE Question (
                           questionId INT NOT NULL AUTO_INCREMENT,
                           quizId INT NOT NULL,
                           questionType INT NOT NULL,
