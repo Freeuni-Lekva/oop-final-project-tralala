@@ -7,7 +7,7 @@ $(document).ready(function() {
     
     // Function to update button visibility
     function updateButtonVisibility() {
-        if (currentSlide === 2) { // Slide 3 (index 2)
+        if (currentSlide === 0) { // Slide 1 (index 0)
             $createQuizContainer.show();
         } else {
             $createQuizContainer.hide();
@@ -54,6 +54,9 @@ $(document).ready(function() {
     // Initialize first slide
     $slides.first().addClass('active');
     $navButtons.first().addClass('active');
+    
+    // Show button on first slide
+    updateButtonVisibility();
 
     // Navigation click handler
     $navButtons.click(function(e) {

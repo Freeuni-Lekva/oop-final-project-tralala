@@ -34,7 +34,7 @@
                             <div class="user-info">
                                 <div class="avatar"></div>
                                 <div class="user-details">
-                                    <div class="username">${user.name}</div>
+                                    <div class="username"><%= request.getParameter("username") %></div>
                                     <div class="status">Online</div>
                                 </div>
                             </div>
