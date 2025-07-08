@@ -99,14 +99,14 @@
 <body>
 <div class="container">
     <h1>Create Account</h1>
-    <form action="AccountCreation" method="post">
+    <form action="/RegistrationServlet" method="post">
         <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" required>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
         </div>
         <div class="form-group">
-            <label for="lastName">Surname</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <label for="last_name">Surname</label>
+            <input type="text" id="last_name" name="last_name" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>

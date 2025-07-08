@@ -46,7 +46,7 @@
                 </tbody>
             </table>
         </div>
-        <a href="createAccount.jsp" class="btn btn-primary">Create New Account</a>
+        <a href="create_new.jsp" class="btn btn-primary">Create New Account</a>
     </div>
 </body>
 </html>

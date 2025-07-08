@@ -1,3 +1,5 @@
 <Context>
-    <Manager pathname="" />
+    <Manager className="org.apache.catalina.session.PersistentManager" saveOnRestart="true">
+        <Store className="org.apache.catalina.session.FileStore"/>
+    </Manager>
 </Context>
