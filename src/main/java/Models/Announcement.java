@@ -46,5 +46,13 @@ public class Announcement {
     public void setMessage(String message) {
         this.text = message;
     }
-    
+
+    public int getAnnouncementId() {
+        return annid;
+    }
+
+    public void setAnnouncementId(int annid) {
+        this.annid = annid;
+    }
+
 }
