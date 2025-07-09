@@ -3,5 +3,5 @@ CREATE TABLE Announcements (
                                username VARCHAR(255) NOT NULL,
                                message TEXT NOT NULL,
                                announcementTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                               FOREIGN KEY (username) REFERENCES accounts(username) ON DELETE CASCADE
+                               FOREIGN KEY (username) REFERENCES Accounts(username) ON DELETE CASCADE
 );
