@@ -6,16 +6,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLConnector {
-    private static final String URL = "jdbc:mysql://localhost:3306/tralala";
+
+    private static final String URL = "jdbc:mysql://localhost:3306/";
     private final static String USERNAME = "root";
 
-    private final static String PASSWORD = "VashlisXe!123";
+    private final static String PASSWORD = "";
 
     public static BasicDataSource dataSource;
 
     public SQLConnector(){
         dataSource = new BasicDataSource();
         dataSource.setUrl(URL);
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);   
     }
