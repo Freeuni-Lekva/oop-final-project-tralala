@@ -10,5 +10,5 @@ CREATE TABLE Quiz (
                           immediateFeedback BOOLEAN DEFAULT FALSE,
                           createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           PRIMARY KEY (quizID),
-                          FOREIGN KEY (userName) references AccountsData(userName) ON DELETE CASCADE
+                          FOREIGN KEY (userName) references Accounts(userName) ON DELETE CASCADE
 );
