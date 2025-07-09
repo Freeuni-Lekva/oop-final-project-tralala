@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Notifications (
-                                             notificationId INT NOT NULL AUTO_INCREMENT,
-                                             usernameFrom VARCHAR(255) NOT NULL,
+    notificationId INT NOT NULL AUTO_INCREMENT,
+    usernameFrom VARCHAR(255) NOT NULL,
     usernameTO VARCHAR(255) NOT NULL,
     notificationType INT NOT NULL,
     quizLink VARCHAR(255) DEFAULT NULL,
