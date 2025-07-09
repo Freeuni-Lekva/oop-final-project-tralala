@@ -22,6 +22,16 @@
     <servlet-class>Controllers.RegistrationServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <servlet-class>Controllers.EditProfileServlet</servlet-class>
+    <multipart-config>
+      <max-file-size>16177215</max-file-size>
+      <max-request-size>16177215</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
@@ -30,6 +40,11 @@
   <servlet-mapping>
     <servlet-name>Registration</servlet-name>
     <url-pattern>/RegistrationServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <url-pattern>/EditProfile</url-pattern>
   </servlet-mapping>
 
 

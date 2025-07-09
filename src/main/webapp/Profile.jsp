@@ -171,7 +171,7 @@
                             </div>
                         </form>
                         <div class="d-grid gap-2">
-                            <a href="edit-profile.jsp" class="edit-btn">Edit Profile</a>
+                            <a href="/EditProfile" class="edit-btn">Edit Profile</a>
                             <a href="change-password.jsp" class="btn btn-outline-secondary edit-btn">Change Password</a>
                         </div>
                     </div>
