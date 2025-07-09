@@ -1,101 +1,55 @@
 package Models;
 
-//Achievementebis klasi
+//achievements class
 public class Achievement {
-    private int achId;
-    private String achievementName;
-    private String achievementUrl;
-    private String achievementDescription;
+    private int achid;
+    private String achname;
+    private String achurl;
+    private String text;
 
-    /**
-     * Constructs a new Achievement with the specified details.
-     *
-     * @param achId          the unique ID of the achievement
-     * @param achievementName        the name of the achievement
-     * @param achievementUrl         the URL associated with the achievement
-     * @param achievementDescription a description of the achievement
-     */
-    public Achievement(int achId,
-                       String achievementName,
-                       String achievementUrl,
-                       String achievementDescription) {
-        this.achId = achId;
-        this.achievementName = achievementName;
-        this.achievementUrl = achievementUrl;
-        this.achievementDescription = achievementDescription;
+
+    public Achievement(int achievementId, String achievementName, String achievementUrl, String achievementDescription) {
+        this.achid = achievementId;
+        this.achname = achievementName;
+        this.achurl = achievementUrl;
+        this.text = achievementDescription;
     }
 
-    // return id
     public int getAchievementId() {
-        return achId;
+        return achid;
     }
 
-    /**
-     * Sets the unique ID of the achievement.
-     *
-     * @param achId the new achievement ID
-     */
-    ///  setteri
-    public void setAchievementId(int achId) {
-        this.achId = achId;
+
+    public void setAchievementId(int id) {
+        this.achid = id;
     }
 
-    /**
-     * Gets the name of the achievement.
-     *
-     * @return the achievement name
-     */
-    //getteri
+
     public String getAchievementName() {
-
-        return achievementName;
+        return achname;
     }
 
-    /**
-     * Sets the name of the achievement.
-     *
-     * @param achnm the new achievement name
-     */
-    public void setAchievementName(String achnm) {
 
-        this.achievementName = achnm;
+    public void setAchievementName(String nm) {
+        this.achname = nm;
     }
 
-    /**
-     * Gets the URL associated with the achievement.
-     *
-     * @return the achievement URL
-     */
-    //get URL
+
     public String getAchievementUrl() {
-        return achievementUrl;
+        return achurl;
     }
 
-    /**
-     * Sets the URL associated with the achievement.
-     *
-     * @param urlach the new achievement URL
-     */
-    public void setAchievementUrl(String urlach) {
-        this.achievementUrl = urlach;
+
+    public void setAchievementUrl(String url) {
+        this.achurl = url;
     }
 
-    /**
-     * Gets the description of the achievement.
-     *
-     * @return the achievement description
-     */
     public String getAchievementDescription() {
-        //ret descrp
-        return achievementDescription;
+        return text;
     }
 
-    /**
-     * Sets the description of the achievement.
-     *
-     * @param someth the new achievement description
-     */
-    public void setAchievementDescription(String someth) {
-        this.achievementDescription = someth;
+
+    public void setAchievementDescription(String text) {
+        this.text = text;
     }
 }
