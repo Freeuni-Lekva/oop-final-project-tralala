@@ -54,7 +54,7 @@ public class Achievement {
     /**
      * Sets the name of the achievement.
      *
-     * @param achievementName the new achievement name
+     * @param achnm the new achievement name
      */
     public void setAchievementName(String achnm) {
 
@@ -74,7 +74,7 @@ public class Achievement {
     /**
      * Sets the URL associated with the achievement.
      *
-     * @param achievementUrl the new achievement URL
+     * @param urlach the new achievement URL
      */
     public void setAchievementUrl(String urlach) {
         this.achievementUrl = urlach;
@@ -93,7 +93,7 @@ public class Achievement {
     /**
      * Sets the description of the achievement.
      *
-     * @param achievementDescription the new achievement description
+     * @param someth the new achievement description
      */
     public void setAchievementDescription(String someth) {
         this.achievementDescription = someth;
