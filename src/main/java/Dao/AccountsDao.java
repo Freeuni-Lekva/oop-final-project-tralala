@@ -40,7 +40,6 @@ public class AccountsDao {
         String query = "INSERT INTO Accounts (userName, firstName, lastName, password, email, imageUrl, salt, achievementIds, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-
             setStatement(account, statement);
             statement.setBoolean(9, account.isAdmin());
             account.setAchievementIds(new HashSet<>());
@@ -80,7 +79,7 @@ public class AccountsDao {
                  ResultSet resultSetFriends = statementFriends.executeQuery()) {
                 if (resultSet.next()) {
                     account = new Account(
-                            resultSet.getString("username"),
+                            resultSet.getString("userName"),                // changed username->userName
                             resultSet.getString("firstName"),
                             resultSet.getString("lastName"),
                             resultSet.getString("password"),
@@ -149,7 +148,7 @@ public class AccountsDao {
 
             while (resultSet.next()) {
                 Account account = new Account(
-                        resultSet.getString("username"),
+                        resultSet.getString("userName"),        //changed username->userName
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("password"),
