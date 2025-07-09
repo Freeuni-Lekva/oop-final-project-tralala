@@ -99,7 +99,7 @@
 <body>
 <div class="container">
     <h1>Create Account</h1>
-    <form action="/RegistrationServlet" method="post">
+    <form action="RegistrationServlet" method="post">
         <div class="form-group">
             <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" required>
