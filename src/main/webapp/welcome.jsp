@@ -90,7 +90,7 @@
             <div class="centered">
                 <h1>My Activities</h1>
                 <div class="button-container">
-                    <a href="/create-quiz.jsp" class="quiz-button">
+                    <a href="/CreateQuiz.jsp" class="quiz-button">
                         Create your own quiz
                     </a>
                 </div>
