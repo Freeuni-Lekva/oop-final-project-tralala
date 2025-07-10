@@ -59,7 +59,8 @@ public class CreateQuizServlet extends HttpServlet {
         request.getSession().setAttribute("questions", questions);
 
         // Forward to JSP for quiz creation/editing
-        request.getRequestDispatcher("CreateQuiz.jsp").forward(request, response);
+        // Forward to JSP for quiz creation/editing
+        request.getRequestDispatcher("create-quiz.jsp").forward(request, response);
     }
 
     /**
