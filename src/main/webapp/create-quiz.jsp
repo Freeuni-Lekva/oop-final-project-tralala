@@ -5,16 +5,17 @@
     <title>Create Quiz</title>
     <link rel="stylesheet" href="css/create-quiz.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/create-quiz.js" defer></script>
+    <script src="js/create-quiz.js?v=2" defer></script>
 </head>
 <body>
     <div class="container">
         <div class="quiz-form">
             <h1>Create Your Quiz</h1>
-            <form id="quizForm">
+            <form id="quizForm" method="post" action="/CreateQuizServlet">
+                <input type="hidden" name="quizAction" value="save">
                 <div class="form-group">
                     <label for="quizTitle">Quiz Title</label>
-                    <input type="text" id="quizTitle" name="quizTitle" required>
+                    <input type="text" id="quizTitle" name="quizName" required>
                 </div>
                 
                 <div class="form-group">
