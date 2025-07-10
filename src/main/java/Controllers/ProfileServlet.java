@@ -25,7 +25,7 @@ public class ProfileServlet extends HttpServlet {
         
         if (currentUser == null) {
             // If user is not logged in, redirect to login page
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Authorisation.jsp");
             return;
         }
 
@@ -42,7 +42,7 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("imageUrl", currentUser.getImageUrl());
         
         // Forward to the profile view
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Profile.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jProfile.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -57,7 +57,7 @@ public class ProfileServlet extends HttpServlet {
         Account currentUser = (Account) request.getSession().getAttribute("loggedInAccount");
         
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Authorisation.jsp");
             return;
         }
 

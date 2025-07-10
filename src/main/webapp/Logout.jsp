@@ -148,11 +148,11 @@
 
     <div class="links-container">
         <div class="links-row">
-            <a href="login.jsp" class="link primary">Login Again</a>
-            <a href="create_new.jsp" class="link">Create Account</a>
+            <a href="Authorisation.jsp" class="link primary">Login Again</a>
+            <a href="Registration.jsp" class="link">Create Account</a>
         </div>
         <div class="links-row">
-            <a href="solar_system.html" class="link">Back to Home</a>
+            <a href="StartPage.html" class="link">Back to Home</a>
         </div>
     </div>
 </div>
