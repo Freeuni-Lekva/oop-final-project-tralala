@@ -26,40 +26,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const newQuestion = createNewQuestion();
         questionsContainer.appendChild(newQuestion);
     });
-
-    // Form submission handler
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Collect form data
-        const formData = new FormData(this);
-        const quizData = {};
-
-        // Convert FormData to object
-        for (let [key, value] of formData.entries()) {
-            quizData[key] = value;
-        }
-
-        // Send quiz data to server
-        fetch('/create-quiz', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(quizData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Quiz created successfully!');
-                window.location.href = '/quiz/' + data.quizId;
-            } else {
-                alert('Error creating quiz: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while creating the quiz');
-        });
-    });
 });
