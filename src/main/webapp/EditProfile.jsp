@@ -291,7 +291,7 @@
         </div>
     </form>
 
-    <a href="profile.jsp" class="link">Back to Profile</a>
+    <a href="Profile.jsp" class="link">Back to Profile</a>
 </div>
 
 <script>
