@@ -25,7 +25,11 @@ public class NotificationServlet extends HttpServlet {
         List<Notification> notifications;
 
         NotificationManager notifManager = (NotificationManager) getServletContext().getAttribute(NotificationManager.ATTRIBUTE_NAME);
-        notifications = notifManager.getNotificationsToUser(loggedInUsername);
+        try {
+            notifications = notifManager.getNotificationsToUser(loggedInUsername);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         request.setAttribute("notifications", notifications);
         request.getRequestDispatcher("/welcome.jsp").forward(request, response);
     }
@@ -40,14 +44,18 @@ public class NotificationServlet extends HttpServlet {
         String loggedInUsername = (String) request.getSession().getAttribute("username");
         String receiver = requestData.receiver;
 
-        findType(type, receiver,loggedInUsername, requestData, responseData, request);
+        try {
+            findType(type, receiver,loggedInUsername, requestData, responseData, request);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(gson.toJson(responseData));
     }
 
-    private void findType(String type, String receiver, String loggedInUsername, RequestData requestData, ResponseData responseData, HttpServletRequest request) {
+    private void findType(String type, String receiver, String loggedInUsername, RequestData requestData, ResponseData responseData, HttpServletRequest request) throws SQLException {
         Notification note;
         NotificationManager notifManager = (NotificationManager) request.getServletContext().getAttribute(NotificationManager.ATTRIBUTE_NAME);
         switch (type) {
