@@ -1,6 +1,6 @@
-package DAO;
+package Dao;
 
-import javafx.util.Pair;
+import Dao.QuizDao;
 import Models.Quiz;
 import Models.QuizHistory;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -14,11 +14,11 @@ import java.util.List;
  * Data Access Object for managing quiz history data in the database.
  * Provides CRUD operations and additional queries for quiz-related statistics.
  */
-public class QuizHistoryDAO {
+public class QuizHistoryDao {
 
     private BasicDataSource dataSource;
 
-    public QuizHistoryDAO(BasicDataSource dataSource) {
+    public QuizHistoryDao(BasicDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -227,7 +227,7 @@ public class QuizHistoryDAO {
              PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            QuizDAO quizDAO = new QuizDAO(dataSource);
+            QuizDao quizDAO = new QuizDao(dataSource);
             while (rs.next()) {
                 quizzes.add(quizDAO.readQuiz(rs.getInt("quizId")));
             }
@@ -242,7 +242,7 @@ public class QuizHistoryDAO {
         List<Quiz> quizzes = new ArrayList<>();
         String query = "SELECT quizId FROM quizHistory WHERE username = ? ORDER BY DATE_FORMAT(startTime, '%Y-%m-%d %H:%i:%s') DESC";
 
-        QuizDAO quizDAO = new QuizDAO(dataSource);
+        QuizDao quizDAO = new QuizDao(dataSource);
         try (Connection connection = dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -331,6 +331,23 @@ public class QuizHistoryDAO {
                 else
                     return null;
             }
+        }
+    }
+    public static class Pair<L, R> {
+        private final L left;
+        private final R right;
+
+        public Pair(L left, R right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        public L getLeft() {
+            return left;
+        }
+
+        public R getRight() {
+            return right;
         }
     }
 }
