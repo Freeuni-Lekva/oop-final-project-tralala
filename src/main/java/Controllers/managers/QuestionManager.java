@@ -11,7 +11,10 @@ import java.util.*;
  * Manages operations related to Question objects, including retrieval, creation, update, and deletion.
  */
 public class QuestionManager {
+
+    // Attribute name for session/context use
     public static final String ATTRIBUTE_NAME = "QuestionManager";
+
     private QuestionDAO questionDAO;
 
     /**
@@ -38,7 +41,7 @@ public class QuestionManager {
      * Creates a new Question in the database.
      *
      * @param question The Question object to create.
-     * @return
+     * @return The ID of the newly created question.
      */
     public int createQuestion(Question question) {
         return questionDAO.CreateQuestion(question);
@@ -62,70 +65,104 @@ public class QuestionManager {
         questionDAO.deleteQuestion(questionId);
     }
 
-
-    public int isAnswerCorrect(Question question, String answer, ArrayList<String> answers,
+    /**
+     * Checks whether the provided answers are correct for the given question.
+     *
+     * @param question         The question to check against.
+     * @param singleAnswer     The answer provided by the user (for single-answer questions).
+     * @param multipleAnswers  The list of answers provided by the user (for multiple-choice or multi-answer questions).
+     * @param matchingAnswers  The map of user-provided matching pairs (for matching questions).
+     * @return The number of correct answers.
+     */
+    public int isAnswerCorrect(Question question, String singleAnswer,
+                               ArrayList<String> multipleAnswers,
                                HashMap<String, String> matchingAnswers) {
+
         QuestionType questionType = question.getQuestionType();
-        System.out.println("Ques: " + questionType + " " + question);
-        System.out.println("Ans: " + answer + " " + answers);
-        System.out.println("Match: " + matchingAnswers);
+
         if (questionType.equals(QuestionType.MATCHING)) {
-            HashMap<String, String> correctAnswers = question.getMatchingPairs();
+            // Handle Matching Type Questions
+            HashMap<String, String> correctMatchingPairs = question.getMatchingPairs();
             int correctCount = 0;
 
-            for (Map.Entry<String, String> entry : matchingAnswers.entrySet()) {
-                String userKey = entry.getKey();
-                String userValue = entry.getValue();
+            // Check each user-provided pair
+            for (Map.Entry<String, String> userEntry : matchingAnswers.entrySet()) {
+                String userKey = userEntry.getKey();
+                String userValue = userEntry.getValue();
 
-                if (correctAnswers.containsKey(userKey) && correctAnswers.get(userKey).equals(userValue)) {
+                // Verify the user's answer matches the correct pair
+                if (correctMatchingPairs.containsKey(userKey) &&
+                        correctMatchingPairs.get(userKey).equals(userValue)) {
                     correctCount++;
                 }
             }
 
             return correctCount;
-        }
-        else if (questionType.equals(QuestionType.QUESTION_RESPONSE) ||
+
+        } else if (questionType.equals(QuestionType.QUESTION_RESPONSE) ||
                 questionType.equals(QuestionType.FILL_IN_THE_BLANK) ||
                 questionType.equals(QuestionType.PICTURE_RESPONSE)) {
-            return question.getSingleQuestionAnswer().equalsIgnoreCase(answer.trim()) ? 1 : 0;
-        } else if (questionType.equals(QuestionType.MULTI_ANSWER)) {
-            List<String> correctAnswers = new ArrayList<>();
-            for (String correctAnswer : question.getMultipleAnswerFields()) {
-                correctAnswers.add(correctAnswer.toLowerCase().trim());
+
+            // Handle Single-Answer Questions
+            String correctAnswer = question.getSingleQuestionAnswer();
+
+            if (correctAnswer.equalsIgnoreCase(singleAnswer.trim())) {
+                return 1;
+            } else {
+                return 0;
             }
 
-            List<String> userAnswers = new ArrayList<>();
-            for (String userAnswer : answers) {
-                userAnswers.add(userAnswer.toLowerCase().trim());
+        } else if (questionType.equals(QuestionType.MULTI_ANSWER)) {
+
+            // Handle Multi-Answer Questions
+            List<String> correctAnswerList = new ArrayList<>();
+            for (String correct : question.getMultipleAnswerFields()) {
+                correctAnswerList.add(correct.toLowerCase().trim());
+            }
+
+            List<String> userAnswerList = new ArrayList<>();
+            for (String userAnswer : multipleAnswers) {
+                userAnswerList.add(userAnswer.toLowerCase().trim());
             }
 
             int correctCount = 0;
-            for (String correctAnswer : correctAnswers) {
-                if (userAnswers.contains(correctAnswer)) {
+
+            // Count how many correct answers are present in the user's answers
+            for (String correct : correctAnswerList) {
+                if (userAnswerList.contains(correct)) {
                     correctCount++;
                 }
             }
 
             return correctCount;
-        }
-        else if (questionType.equals(QuestionType.MULTIPLE_CHOICE) ||
+
+        } else if (questionType.equals(QuestionType.MULTIPLE_CHOICE) ||
                 questionType.equals(QuestionType.MULTIPLE_CHOICE_WITH_ANSWERS)) {
-            ArrayList<String> correctAnswers = new ArrayList<>();
-            ArrayList<String> allAnswers = question.getMultipleChoiceAnswers();
-            System.out.println("All answers: " + allAnswers);
-            ArrayList<Integer> indices = question.getMultipleChoiceCorrectIndexes();
-            for (int index : indices) {
-                correctAnswers.add(allAnswers.get(index).toLowerCase().trim());
+
+            // Handle Multiple-Choice Questions
+            ArrayList<String> correctAnswerTexts = new ArrayList<>();
+            ArrayList<String> allChoices = question.getMultipleChoiceAnswers();
+            ArrayList<Integer> correctAnswerIndices = question.getMultipleChoiceCorrectIndexes();
+
+            // Extract the correct answer texts based on their indexes
+            for (int index : correctAnswerIndices) {
+                correctAnswerTexts.add(allChoices.get(index).toLowerCase().trim());
             }
-            ArrayList<String> userAnswers = new ArrayList<>();
-            for (String userAnswer : answers) {
-                userAnswers.add(userAnswer.toLowerCase().trim());
+
+            ArrayList<String> userAnswerList = new ArrayList<>();
+            for (String userAnswer : multipleAnswers) {
+                userAnswerList.add(userAnswer.toLowerCase().trim());
             }
-            System.out.println("Correst: " + correctAnswers);
-            System.out.println("User: " + userAnswers);
-            return userAnswers.containsAll(correctAnswers) ? 1 : 0;
+
+            // Check if all correct answers are present in the user's answers
+            if (userAnswerList.containsAll(correctAnswerTexts)) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
+
+        // Return 0 for unsupported question types
         return 0;
     }
-
 }
