@@ -1,8 +1,8 @@
 package Test;
 
 import Models.Achievement;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ public class AchievementTest {
 
     private Achievement achievement;
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         achievement = new Achievement(
                 1,

@@ -1,20 +1,20 @@
 package Test;
 
 import Models.Account;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AccountTest {
 
     private Account account;
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         account = new Account(
                 "jgushiann",

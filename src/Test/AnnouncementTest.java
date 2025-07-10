@@ -1,8 +1,8 @@
 package Test;
 
 import Models.Announcement;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.sql.Timestamp;
 
@@ -13,7 +13,7 @@ public class AnnouncementTest {
     private Announcement announcement;
     private Timestamp initialTimestamp;
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         initialTimestamp = new Timestamp(System.currentTimeMillis());
         announcement = new Announcement(
