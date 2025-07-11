@@ -339,7 +339,7 @@
     <div id="notifications" class="tabcontent">
         <input type="hidden" id="receiverId"
         <%-- tamuna miakomentara esaa
-      <%--  value="<%= ((Account) request.getAttribute("account")).getUserName() %>"> --%>
+      <value="<%= ((Account) request.getAttribute("account")).getUserName() %>"> --%>
         <h3>Notifications</h3>
         <ul>
             <%
