@@ -234,7 +234,7 @@
         </div>
 
         <div class="full-quiz-button">
-            <a href="Authorisation.jsp">Log In to Access Full Quiz</a>
+            <a href="login.jsp">Log In to Access Full Quiz</a>
         </div>
     </div>
 
@@ -276,7 +276,7 @@
                 }
             } else {
                 alert('Quiz completed!');
-                window.location.href = 'Authorisation.jsp';
+                window.location.href = 'login.jsp';
             }
         }
 

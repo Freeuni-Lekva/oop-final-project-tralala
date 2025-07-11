@@ -17,7 +17,7 @@ $(document).ready(function() {
     // Add click handler for create quiz button
     $('.create-quiz-btn').click(function(e) {
         console.log('Create quiz button clicked!');
-        window.location.href = '/CreateQuiz.jsp';
+        window.location.href = '/create-quiz.jsp';
         e.preventDefault();
     });
     // Get all slides and navigation buttons

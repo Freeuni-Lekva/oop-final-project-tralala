@@ -154,8 +154,8 @@
         <button type="submit" class="login-button">Login</button>
     </form>
 
-    <a href="Registration.jsp" class="link">Create New Account</a>
-    <a href="StartPage.html" class="link">Back to Home</a>
+    <a href="create_new.jsp" class="link">Create New Account</a>
+    <a href="solar_system.html" class="link">Back to Home</a>
 </div>
 </body>
 </html>

@@ -52,7 +52,7 @@ public class EditProfileServlet extends HttpServlet {
         Account currentUser = (Account) request.getSession().getAttribute("loggedInAccount");
         
         if (currentUser == null) {
-            response.sendRedirect("Authorisation.jsp");
+            response.sendRedirect("login.jsp");
             return;
         }
 
