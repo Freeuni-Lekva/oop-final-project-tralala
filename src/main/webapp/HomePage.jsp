@@ -100,7 +100,7 @@
                 </div>
                 <div class="menu-item">
                     <i class="fa fa-pencil" style="font-size: 16px;"></i>
-                    <a href="/ProfileServlet">Edit Profile</a>
+                    <a href="/EditProfile">Edit Profile</a>
                 </div>
                 <div class="menu-item">
                     <i class="fa fa-sign-out" style="font-size: 16px;"></i>
@@ -394,8 +394,8 @@
         </ul>
     </div>
 </div>
-<script src="javascript/SearchBar.js" defer></script>
-<script src="javascript/SendNotification.js" defer></script>
+<script src="js/SearchBar.js" defer></script>
+<script src="js/SendNotification.js" defer></script>
 
 <script>
     function handleFriendRequest(response, notificationId) {
@@ -418,7 +418,6 @@
             .then(data => {
                 console.log('Request Sent:', data);
                 if (response === "yes") {
-                    console.log("davetanxme");
                     document.getElementById('responseMessage').textContent = "Accepted";
                 } else {
                     document.getElementById('responseMessage').textContent = "Rejected";
