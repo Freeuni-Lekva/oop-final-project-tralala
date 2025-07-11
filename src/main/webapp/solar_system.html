@@ -241,9 +241,9 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow:
-                    rgba(0, 0, 0, 0.66) 0 30px 60px 0,
-                    inset #333 0 0 0 5px,
-                    inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
+                rgba(0, 0, 0, 0.66) 0 30px 60px 0,
+                inset #333 0 0 0 5px,
+                inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
             transition: 1s var(--returnEasing);
         }
 
@@ -259,8 +259,8 @@
             background-position: center;
             background-size: cover;
             transition:
-                    1s var(--returnEasing),
-                    opacity 5s 1s var(--returnEasing);
+                1s var(--returnEasing),
+                opacity 5s 1s var(--returnEasing);
             pointer-events: none;
         }
 
@@ -346,189 +346,189 @@
         .card-wrap:hover .card-bg {
             opacity: 0.8;
             transition:
-                    0.6s var(--hoverEasing),
-                    opacity 5s var(--hoverEasing);
+                0.6s var(--hoverEasing),
+                opacity 5s var(--hoverEasing);
         }
 
         .card-wrap:hover .card {
             transition:
-                    0.6s var(--hoverEasing),
-                    box-shadow 2s var(--hoverEasing);
+                0.6s var(--hoverEasing),
+                box-shadow 2s var(--hoverEasing);
             box-shadow:
-                    rgba(255, 255, 255, 0.2) 0 0 40px 5px,
-                    rgba(255, 255, 255, 1) 0 0 0 1px,
-                    rgba(0, 0, 0, 0.66) 0 30px 60px 0,
-                    inset #333 0 0 0 5px,
-                    inset rgba(255, 255, 255, 1) 0 0 0 6px;
+                rgba(255, 255, 255, 0.2) 0 0 40px 5px,
+                rgba(255, 255, 255, 1) 0 0 0 1px,
+                rgba(0, 0, 0, 0.66) 0 30px 60px 0,
+                inset #333 0 0 0 5px,
+                inset rgba(255, 255, 255, 1) 0 0 0 6px;
         }
     </style>
 </head>
 <body>
-<div class="top-bar">
-    <div>
-        <h1>QuizMaster</h1>
-        <p>Test your knowledge, challenge your mind</p>
-    </div>
-    <div class="nav-buttons">
-        <label class="theme-toggle">
-            <input type="checkbox" id="theme-toggle">
-            <span class="slider"></span>
-        </label>
-        <a href="Authorisation.jsp" class="nav-button">Login</a>
-        <a href="Registration.jsp" class="nav-button">Create Account</a>
-    </div>
+    <div class="top-bar">
+        <div>
+            <h1>QuizMaster</h1>
+            <p>Test your knowledge, challenge your mind</p>
+        </div>
+        <div class="nav-buttons">
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+            <a href="login.jsp" class="nav-button">Login</a>
+            <a href="create_new.jsp" class="nav-button">Create Account</a>
+        </div>
 
-    <script>
-        // Theme toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
+        <script>
+            // Theme toggle functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const body = document.body;
 
-            // Check if dark mode is preferred
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                themeToggle.checked = true;
-                body.classList.add('dark-mode');
-            }
+                // Check if dark mode is preferred
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    themeToggle.checked = true;
+                    body.classList.add('dark-mode');
+                }
 
-            themeToggle.addEventListener('change', function() {
-                body.classList.toggle('dark-mode');
-                body.classList.toggle('light-mode');
+                themeToggle.addEventListener('change', function() {
+                    body.classList.toggle('dark-mode');
+                    body.classList.toggle('light-mode');
+                });
             });
+        </script>
+
+    </div>
+
+    <div id="app" class="container">
+        <card data-image="https://images.pexels.com/photos/3587324/pexels-photo-3587324.jpeg" category="art">
+            <template slot="header">
+                <h1>Art</h1>
+            </template>
+            <template slot="content">
+                <p>Create boldly. Feel deeply. See differently</p>
+            </template>
+        </card>
+        <card data-image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Rafael_Nadal_2011_Roland_Garros_2011-crop.jpg" category="sports">
+            <template slot="header">
+                <h1>Sports</h1>
+            </template>
+            <template slot="content">
+                <p>Push limits, Play hard, Know your game.</p>
+            </template>
+        </card>
+        <card data-image="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg" category="science">
+            <template slot="header">
+                <h1>Science</h1>
+            </template>
+            <template slot="content">
+                <p>Question everything. Discover the unseen.</p>
+            </template>
+        </card>
+        <card data-image="https://image.tmdb.org/t/p/original/gXIuss4Ajlex0E6iJPjkSTR8Qip.jpg" category="movies">
+            <template slot="header">
+                <h1>Movies</h1>
+            </template>
+            <template slot="content">
+                <p>Live the story. Feel the moment. Love the cinema.</p>
+            </template>
+        </card>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        Vue.config.devtools = true;
+
+        Vue.component('card', {
+            template: `
+                <a :href="quizLink" class="card-wrap"
+                    @mousemove="handleMouseMove"
+                    @mouseenter="handleMouseEnter"
+                    @mouseleave="handleMouseLeave"
+                    ref="card">
+                    <div class="card"
+                        :style="cardStyle">
+                        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
+                        <div class="card-info">
+                            <slot name="header"></slot>
+                            <slot name="content"></slot>
+                        </div>
+                    </div>
+                </a>`,
+            mounted() {
+                this.width = this.$refs.card.offsetWidth;
+                this.height = this.$refs.card.offsetHeight;
+            },
+            props: ['dataImage', 'category'],
+            data: () => ({
+                width: 0,
+                height: 0,
+                mouseX: 0,
+                mouseY: 0,
+                mouseLeaveDelay: null
+            }),
+            computed: {
+                quizLink() {
+                    if (this.category === 'art') {
+                        return 'artquiz.jsp';
+                    }
+                    if (this.category === 'sports') {
+                        return 'sportquiz.jsp';
+                    }
+                    if (this.category === 'movies') {
+                        return 'moviequiz.jsp';
+                    }
+                    if (this.category === 'science') {
+                        return 'sciencequiz.jsp';
+                    }
+
+                    return `quiz.jsp?category=${this.category}`;
+                },
+                mousePX() {
+                    return this.mouseX / this.width;
+                },
+                mousePY() {
+                    return this.mouseY / this.height;
+                },
+                cardStyle() {
+                    const rX = this.mousePX * 30;
+                    const rY = this.mousePY * -30;
+                    return {
+                        transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
+                    };
+                },
+                cardBgTransform() {
+                    const tX = this.mousePX * -40;
+                    const tY = this.mousePY * -40;
+                    return {
+                        transform: `translateX(${tX}px) translateY(${tY}px)`
+                    }
+                },
+                cardBgImage() {
+                    return {
+                        backgroundImage: `url(${this.dataImage})`
+                    }
+                }
+            },
+            methods: {
+                handleMouseMove(e) {
+                    this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width/2;
+                    this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height/2;
+                },
+                handleMouseEnter() {
+                    clearTimeout(this.mouseLeaveDelay);
+                },
+                handleMouseLeave() {
+                    this.mouseLeaveDelay = setTimeout(()=>{
+                        this.mouseX = 0;
+                        this.mouseY = 0;
+                    }, 1000);
+                }
+            }
+        });
+
+        const app = new Vue({
+            el: '#app'
         });
     </script>
-
-</div>
-
-<div id="app" class="container">
-    <card data-image="https://images.pexels.com/photos/3587324/pexels-photo-3587324.jpeg" category="art">
-        <template slot="header">
-            <h1>Art</h1>
-        </template>
-        <template slot="content">
-            <p>Create boldly. Feel deeply. See differently</p>
-        </template>
-    </card>
-    <card data-image="https://upload.wikimedia.org/wikipedia/commons/d/d5/Rafael_Nadal_2011_Roland_Garros_2011-crop.jpg" category="sports">
-        <template slot="header">
-            <h1>Sports</h1>
-        </template>
-        <template slot="content">
-            <p>Push limits, Play hard, Know your game.</p>
-        </template>
-    </card>
-    <card data-image="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg" category="science">
-        <template slot="header">
-            <h1>Science</h1>
-        </template>
-        <template slot="content">
-            <p>Question everything. Discover the unseen.</p>
-        </template>
-    </card>
-    <card data-image="https://image.tmdb.org/t/p/original/gXIuss4Ajlex0E6iJPjkSTR8Qip.jpg" category="movies">
-        <template slot="header">
-            <h1>Movies</h1>
-        </template>
-        <template slot="content">
-            <p>Live the story. Feel the moment. Love the cinema.</p>
-        </template>
-    </card>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script>
-    Vue.config.devtools = true;
-
-    Vue.component('card', {
-        template: `
-          <a :href="quizLink" class="card-wrap"
-             @mousemove="handleMouseMove"
-             @mouseenter="handleMouseEnter"
-             @mouseleave="handleMouseLeave"
-             ref="card">
-            <div class="card"
-                 :style="cardStyle">
-              <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
-              <div class="card-info">
-                <slot name="header"></slot>
-                <slot name="content"></slot>
-              </div>
-            </div>
-          </a>`,
-        mounted() {
-            this.width = this.$refs.card.offsetWidth;
-            this.height = this.$refs.card.offsetHeight;
-        },
-        props: ['dataImage', 'category'],
-        data: () => ({
-            width: 0,
-            height: 0,
-            mouseX: 0,
-            mouseY: 0,
-            mouseLeaveDelay: null
-        }),
-        computed: {
-            quizLink() {
-                if (this.category === 'art') {
-                    return 'artquiz.jsp';
-                }
-                if (this.category === 'sports') {
-                    return 'sportquiz.jsp';
-                }
-                if (this.category === 'movies') {
-                    return 'moviequiz.jsp';
-                }
-                if (this.category === 'science') {
-                    return 'sciencequiz.jsp';
-                }
-
-                return `quiz.jsp?category=${this.category}`;
-            },
-            mousePX() {
-                return this.mouseX / this.width;
-            },
-            mousePY() {
-                return this.mouseY / this.height;
-            },
-            cardStyle() {
-                const rX = this.mousePX * 30;
-                const rY = this.mousePY * -30;
-                return {
-                    transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
-                };
-            },
-            cardBgTransform() {
-                const tX = this.mousePX * -40;
-                const tY = this.mousePY * -40;
-                return {
-                    transform: `translateX(${tX}px) translateY(${tY}px)`
-                }
-            },
-            cardBgImage() {
-                return {
-                    backgroundImage: `url(${this.dataImage})`
-                }
-            }
-        },
-        methods: {
-            handleMouseMove(e) {
-                this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width/2;
-                this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height/2;
-            },
-            handleMouseEnter() {
-                clearTimeout(this.mouseLeaveDelay);
-            },
-            handleMouseLeave() {
-                this.mouseLeaveDelay = setTimeout(()=>{
-                    this.mouseX = 0;
-                    this.mouseY = 0;
-                }, 1000);
-            }
-        }
-    });
-
-    const app = new Vue({
-        el: '#app'
-    });
-</script>
-</body>
-</html>
+    </body>
+    </html>

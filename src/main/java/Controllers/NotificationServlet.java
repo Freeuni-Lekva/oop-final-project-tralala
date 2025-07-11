@@ -31,7 +31,7 @@ public class NotificationServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("notifications", notifications);
-        request.getRequestDispatcher("/HomePage.jsp").forward(request, response);
+        request.getRequestDispatcher("/welcome.jsp").forward(request, response);
     }
 
     @Override

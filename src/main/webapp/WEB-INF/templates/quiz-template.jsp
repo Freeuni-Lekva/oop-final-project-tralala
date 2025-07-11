@@ -239,7 +239,7 @@
                 }
             } else {
                 alert('Quiz completed!');
-                window.location.href = 'Authorisation.jsp';
+                window.location.href = 'login.jsp';
             }
         }
 

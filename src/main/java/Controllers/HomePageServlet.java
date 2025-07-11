@@ -64,7 +64,7 @@ public class HomePageServlet extends HttpServlet {
           //  request.setAttribute("quizzes", quizzes);
             request.getSession().setAttribute("account", account);
             request.getSession().removeAttribute("quiz");
-            request.getRequestDispatcher("/HomePage.jsp").forward(request, response);
+            request.getRequestDispatcher("/welcome.jsp").forward(request, response);
 
     //    } catch (SQLException e) {
     //        e.printStackTrace();

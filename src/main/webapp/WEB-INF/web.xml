@@ -1,11 +1,67 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
   <welcome-file-list>
-    <welcome-file>StartPage.html</welcome-file>
+    <welcome-file>solar_system.html</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>create-quiz.jsp</welcome-file>
   </welcome-file-list>
+
+
+
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>Controllers.LogInServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>Controllers.RegistrationServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <servlet-class>Controllers.EditProfileServlet</servlet-class>
+    <multipart-config>
+      <max-file-size>16177215</max-file-size>
+      <max-request-size>16177215</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Registration</servlet-name>
+    <url-pattern>/RegistrationServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <url-pattern>/EditProfile</url-pattern>
+  </servlet-mapping>
+
+
+
+  <context-param>
+    <param-name>AccountManager</param-name>
+    <param-value>Controllers.managers.AccountManager</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>Controllers.Listeners.AccountListener</listener-class>
+  </listener>
+
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
 </web-app>
