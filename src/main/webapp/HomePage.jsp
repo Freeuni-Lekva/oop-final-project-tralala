@@ -106,9 +106,9 @@
                     <i class="fa fa-sign-out" style="font-size: 16px;"></i>
                     <a href="/LogoutServlet">Log Out</a>
                 </div>
-                <div class="menu-item">
+                <%-- <div class="menu-item">
                     <i class="fa fa-trash" style="font-size: 16px;"></i>
-                    <a href="/DeleteAccountServlet">Delete Account</a>
+                   <%-- <a href="/DeleteAccountServlet">Delete Account</a> --%>
                 </div>
             </div>
         </div>
