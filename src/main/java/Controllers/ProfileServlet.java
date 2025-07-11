@@ -1,114 +1,189 @@
 package Controllers;
 
 import Controllers.managers.AccountManager;
+import Controllers.managers.AchievementManager;
+import Controllers.managers.FriendsManager;
+import Controllers.managers.QuizManager;
 import Models.Account;
+import Models.Achievement;
+import Models.Quiz;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Set;
 
-/**
- * ProfileServlet handles profile-related operations including:
- * - Displaying the user's profile page
- * - Updating profile information (specifically profile picture URL)
- *
- * This servlet requires users to be logged in to access any functionality.
- */
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/ProfileServlet"})
+@MultipartConfig
 public class ProfileServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Handles GET requests to display the user's profile page.
-     * Retrieves the logged-in user's information and displays their profile.
-     * Redirects to login page if user is not authenticated.
-     *
-     * @param request HttpServletRequest containing the user's request
-     * @param response HttpServletResponse for sending the profile page
-     * @throws ServletException if servlet-specific error occurs
-     * @throws IOException if I/O error occurs
-     */
+    // Handles GET requests for viewing a profile
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get the account manager from servlet context
+        // Retrieve necessary managers from context
+        AchievementManager achievementManager = (AchievementManager) getServletContext().getAttribute(AchievementManager.ATTRIBUTE_NAME);
         AccountManager accountManager = (AccountManager) getServletContext().getAttribute(AccountManager.ATTRIBUTE_NAME);
+        QuizManager quizManager = (QuizManager) getServletContext().getAttribute(QuizManager.ATTRIBUTE_NAME);
+        FriendsManager friendsManager = (FriendsManager) getServletContext().getAttribute(FriendsManager.ATTRIBUTE_NAME);
 
-        // Get the currently logged-in user from session
-        Account loggedInUser = (Account) request.getSession().getAttribute("loggedInAccount");
+        // Get logged-in and profile username
+        String loggedInUsername = (String) request.getSession().getAttribute("username");
+        String profileUsername = request.getParameter("username");
 
-        // Check if user is authenticated
-        if (loggedInUser == null) {
-            // User is not logged in, redirect to login page
-            response.sendRedirect("Authorisation.jsp");
-            return;
+        // If profile username is not provided, assume self-profile
+        if (profileUsername == null) profileUsername = loggedInUsername;
+
+        // Get account objects for profile and logged-in user
+        Account profileAccount = accountManager.getAccount(profileUsername);
+        Account loggedInAccount = accountManager.getAccount(loggedInUsername);
+
+        request.setAttribute("account", profileAccount);
+
+        // Check if user is viewing their own profile
+        boolean isViewingOwnProfile = profileUsername.equals(loggedInUsername);
+        request.setAttribute("isSelf", isViewingOwnProfile);
+
+        // Check if the logged-in user is an admin
+        boolean isAdmin = loggedInAccount.isAdmin();
+        request.setAttribute("isAdmin", isAdmin);
+
+        // Retrieve quizzes created by the user
+        List<Quiz> userQuizzes = quizManager.getQuizzesByUser(profileUsername);
+        request.setAttribute("quizList", userQuizzes);
+
+        // Retrieve achievements earned by the user
+        try {
+            Set<Achievement> userAchievements = achievementManager.getAllAchievemtnsByUser(profileAccount.getAchievementIds());
+            request.setAttribute("achievementList", userAchievements);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
-        // Set the profile data in request scope for JSP access
-        request.setAttribute("profile", loggedInUser);
+        // Retrieve friends of the user
+        try {
+            List<String> userFriends = friendsManager.getAcceptedFriendRequests(profileUsername);
+            request.setAttribute("friendsList", userFriends);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        // Set flag indicating user is viewing their own profile
-        request.setAttribute("isSelf", true); // Always true since user is viewing their own profile
-
-        // Set admin status for conditional display in JSP
-        request.setAttribute("isAdmin", loggedInUser.isAdmin());
-
-        // Set individual user attributes for easier access in JSP
-        request.setAttribute("firstName", loggedInUser.getFirstName());
-        request.setAttribute("lastName", loggedInUser.getLastName());
-        request.setAttribute("userName", loggedInUser.getUserName());
-        request.setAttribute("email", loggedInUser.getEmail());
-        request.setAttribute("imageUrl", loggedInUser.getImageUrl());
-
-        // Forward to the profile view JSP
-        RequestDispatcher profileDispatcher = request.getRequestDispatcher("Profile.jsp");
-        profileDispatcher.forward(request, response);
+        // Forward to the Profile JSP page
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Profile.jsp");
+        requestDispatcher.forward(request, response);
     }
 
-    /**
-     * Handles POST requests for updating profile information.
-     * Currently supports updating the profile picture URL.
-     * Requires user authentication.
-     *
-     * @param request HttpServletRequest containing form data
-     * @param response HttpServletResponse for sending responses
-     * @throws ServletException if servlet-specific error occurs
-     * @throws IOException if I/O error occurs
-     */
+    // Handles POST requests, either redirecting to edit page, or handling delete/makeAdmin actions
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get the account manager from servlet context
         AccountManager accountManager = (AccountManager) getServletContext().getAttribute(AccountManager.ATTRIBUTE_NAME);
+        String method = request.getParameter("_method");
+        String action = request.getParameter("action");
 
-        // Get the currently logged-in user from session
-        Account loggedInUser = (Account) request.getSession().getAttribute("loggedInAccount");
-
-        // Check if user is authenticated
-        if (loggedInUser == null) {
-            // User is not logged in, redirect to login page
-            response.sendRedirect("Authorisation.jsp");
+        // Handle profile deletion
+        if (action != null && action.equals("deleteProfile")) {
+            String username = request.getParameter("username");
+            if (accountManager.deleteAccount(username)) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"success\": true}");
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"success\": false}");
+            }
             return;
         }
 
-        // Get the new profile picture URL from form submission
-        String newImageUrl = request.getParameter("imageUrl");
-
-        // Update profile picture if a new URL is provided
-        if (newImageUrl != null && !newImageUrl.isEmpty()) {
-            // Set the new image URL on the user account
-            loggedInUser.setImageUrl(newImageUrl);
-
-            // Persist the updated account information to the database
-            accountManager.updateAccount(loggedInUser);
+        // Handle make admin action
+        if (action != null && action.equals("makeAdmin")) {
+            String username = request.getParameter("username");
+            accountManager.makeAdmin(username);
+            response.sendRedirect("ProfileServlet?username=" + username);
+            return;
         }
 
-        // Redirect back to profile page to show updated information
-        response.sendRedirect("profile");
+        // Handle profile update (PUT request)
+        if (method != null && method.equalsIgnoreCase("put")) {
+            doPut(request, response);
+        } else {
+            // Redirect to EditProfile.jsp for editing profile information
+            String loggedInUsername = (String) request.getSession().getAttribute("username");
+            if (loggedInUsername != null) {
+                Account account = accountManager.getAccount(loggedInUsername);
+                request.setAttribute("account", account);
+                request.setAttribute("isSelf", true);
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("EditProfile.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You must be logged in to edit your profile.");
+            }
+        }
+    }
+
+    // Handles PUT requests for updating profile information (including profile image)
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        AccountManager accountManager = (AccountManager) getServletContext().getAttribute(AccountManager.ATTRIBUTE_NAME);
+        String loggedInUsername = (String) request.getSession().getAttribute("username");
+
+        Account account = accountManager.getAccount(loggedInUsername);
+
+        // Update profile details from form parameters
+        account.setFirstName(request.getParameter("firstName"));
+        account.setLastName(request.getParameter("lastName"));
+        account.setEmail(request.getParameter("email"));
+
+        request.setAttribute("account", account);
+        request.setAttribute("isSelf", true);
+
+        // Handle profile image upload
+        Part filePart = request.getPart("image");
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = getSubmittedFileName(filePart);
+
+            // Define and create upload directory
+            String uploadDir = getServletContext().getRealPath("") + File.separator + "uploads";
+            File uploadDirFile = new File(uploadDir);
+            if (!uploadDirFile.exists()) {
+                uploadDirFile.mkdirs();
+            }
+
+            // Save the uploaded file
+            filePart.write(uploadDir + File.separator + fileName);
+            account.setImageUrl("uploads/" + fileName);
+        }
+
+        // Update account in database
+        accountManager.updateAccount(account);
+
+        // Forward to EditProfile.jsp
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("EditProfile.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    // Helper method to get submitted file name from multipart part
+    private String getSubmittedFileName(Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
     }
 }
