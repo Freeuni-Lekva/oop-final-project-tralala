@@ -25,7 +25,7 @@
                 </c:if>
                 <c:if test="${sessionScope.currentUser == null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.jsp">Login</a>
+                        <a class="nav-link" href="Authorisation.jsp">Login</a>
                     </li>
                 </c:if>
             </ul>

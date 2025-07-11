@@ -75,7 +75,7 @@ public class CreateQuizServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("username");
         if (username == null) {
             // Session expired or user not logged in
-            response.sendRedirect("login_fail.jsp");
+            response.sendRedirect("AuthorisationTryAgain.jsp");
             return;
         }
 

@@ -44,7 +44,7 @@ public class ProfileServlet extends HttpServlet {
         // Check if user is authenticated
         if (loggedInUser == null) {
             // User is not logged in, redirect to login page
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Authorisation.jsp");
             return;
         }
 
@@ -92,7 +92,7 @@ public class ProfileServlet extends HttpServlet {
         // Check if user is authenticated
         if (loggedInUser == null) {
             // User is not logged in, redirect to login page
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Authorisation.jsp");
             return;
         }
 

@@ -28,10 +28,10 @@ public class LogInServlet extends HttpServlet {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("account", account);
                 request.getSession().setAttribute("loggedInAccount", account);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("welcome.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("HomePage.jsp");
                 requestDispatcher.forward(request, response);
             } else {
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("login_fail.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("AuthorisationTryAgain.jsp");
                 requestDispatcher.forward(request, response);
             }
         } catch (NoSuchAlgorithmException e) {

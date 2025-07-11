@@ -127,7 +127,7 @@
         </div>
         <button type="submit">Create</button>
     </form>
-    <a href="solar_system.html" class="link">Back to Home</a>
+    <a href="StartPage.html" class="link">Back to Home</a>
 </div>
 </body>
 </html>
