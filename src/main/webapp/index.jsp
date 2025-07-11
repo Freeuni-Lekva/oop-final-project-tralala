@@ -242,13 +242,13 @@
 </head>
 <body>
     <div class="top-right-buttons">
-        <button onclick="window.location.href='login.jsp'">Login</button>
-        <button onclick="window.location.href='create_new.jsp'">Create Account</button>
+        <button onclick="window.location.href='Authorisation.jsp'">Login</button>
+        <button onclick="window.location.href='Registration.jsp'">Create Account</button>
     </div>
 
     <div class="nav-buttons">
-        <a href="login.jsp" class="nav-button">Login</a>
-        <a href="create_new.jsp" class="nav-button">Create Account</a>
+        <a href="Authorisation.jsp" class="nav-button">Login</a>
+        <a href="Registration.jsp" class="nav-button">Create Account</a>
     </div>
 
     <div class="container">

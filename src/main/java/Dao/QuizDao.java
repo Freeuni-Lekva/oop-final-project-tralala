@@ -177,14 +177,14 @@ public class QuizDao {
 
     public List<Quiz> getAllQuizzesByCreationTime() throws SQLException {
         List<Quiz> quizzes = new ArrayList<>();
-        String query = "SELECT quizId " +
-                "FROM quiz " +
+        String query = "SELECT quizID " +
+                "FROM Quiz " +
                 "ORDER BY DATE_FORMAT(createTime, '%Y-%m-%d %H:%i:%s') DESC";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                quizzes.add(readQuiz(resultSet.getInt("quizId")));
+                quizzes.add(readQuiz(resultSet.getInt("quizID")));
             }
         }
         return quizzes;

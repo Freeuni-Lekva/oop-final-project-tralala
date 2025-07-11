@@ -24,7 +24,13 @@ public class HomePageServlet extends HttpServlet {
 //        AchievementManager achievementManager = (AchievementManager) getServletContext().getAttribute(AchievementManager.ATTRIBUTE_NAME);
         //       NotificationManager notificationManager = (NotificationManager) getServletContext().getAttribute(NotificationManager.ATTRIBUTE_NAME);
         String username = (String) request.getSession().getAttribute("username");
-        Account account = (Account) accountManager.getAccount(username);
+        if (username == null) {
+            // Redirect to login if user not logged in
+            response.sendRedirect("Authorisation.jsp");
+            return;
+        }
+        Account account = null;
+        account = (Account) accountManager.getAccount(username);
         System.out.println("account = " + account);
         //    List<LeaderboardEntry> leaderboard = (List<LeaderboardEntry>) accountManager.getLeaderboard();
         //      List<Quiz> quizzes = quizManager.getAllQuizzes();
@@ -70,7 +76,7 @@ public class HomePageServlet extends HttpServlet {
         //  request.setAttribute("quizzes", quizzes);
         request.getSession().setAttribute("account", account);
         request.getSession().removeAttribute("quiz");
-        request.getRequestDispatcher("/welcome.jsp").forward(request, response);
+        request.getRequestDispatcher("/HomePage.jsp").forward(request, response);
 
         //    } catch (SQLException e) {
         //        e.printStackTrace();

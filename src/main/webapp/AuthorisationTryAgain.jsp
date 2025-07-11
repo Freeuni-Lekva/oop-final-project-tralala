@@ -177,7 +177,7 @@
     </div>
 
     <br>
-    <a class="create-link" href="create_new.jsp">Create New Account</a>
+    <a class="create-link" href="Registration.jsp">Create New Account</a>
 </div>
 
 <script>
