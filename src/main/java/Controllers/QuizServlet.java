@@ -90,7 +90,7 @@ public class QuizServlet extends HttpServlet {
             quizHistory.setStartTime(new java.sql.Time(System.currentTimeMillis()));
 
             int questionIndex = 0;
-            request.getSession().setAttribute("quizHistory", quizHistory);
+            request.getSession().setAttribute("quizhistorydata", quizHistory);
             request.getSession().setAttribute("questionIndex", questionIndex);
             response.sendRedirect(request.getContextPath() + "/QuestionServlet?quizId=" + quizId + "&questionIndex=0");
         }
