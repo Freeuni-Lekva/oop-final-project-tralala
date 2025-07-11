@@ -50,8 +50,8 @@ public class CreateQuizServlet extends HttpServlet {
             quizId = quiz.getQuizID();
         }
 
-        // Load current list of questions for this quiz
-        List<Question> questions = quizManager.getAllQuestionsByQuiz(quizId);
+        // Load current list of questions if quiz already persisted
+        List<Question> questions = (quizId != 0) ? quizManager.getAllQuestionsByQuiz(quizId) : java.util.Collections.emptyList();
 
         // Store quiz and questions in session for the JSP
         request.getSession().setAttribute("quiz", quiz);
@@ -72,15 +72,27 @@ public class CreateQuizServlet extends HttpServlet {
 
         // Determine action: 'save' or 'delete'
         String action = request.getParameter("quizAction");
-        String username = request.getSession().getAttribute("username").toString();
+        String username = (String) request.getSession().getAttribute("username");
+        if (username == null) {
+            // Session expired or user not logged in
+            response.sendRedirect("login_fail.jsp");
+            return;
+        }
 
         QuizManager quizManager = (QuizManager) request.getServletContext().getAttribute(QuizManager.ATTRIBUTE_NAME);
         Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");
+        boolean isNew = (quiz == null) || quiz.getQuizID() == 0;
 
-        // If no quiz in session, redirect back home
+        // If no quiz object in session (e.g., session expired), create a fresh one when action is save
         if (quiz == null) {
-            response.sendRedirect("HomePageServlet");
-            return;
+            if ("save".equals(action)) {
+                quiz = new Quiz();
+                quiz.setCreatorUsername(username);
+                isNew = true;
+            } else {
+                response.sendRedirect("HomePageServlet#slide-4");
+                return;
+            }
         }
 
         if ("save".equals(action)) {
@@ -91,8 +103,14 @@ public class CreateQuizServlet extends HttpServlet {
             quiz.setQuizDescription(request.getParameter("quizDescription"));
             quiz.setQuizName(request.getParameter("quizName"));
 
-            // Persist changes
-            quizManager.updateQuiz(quiz);
+            if (isNew) {
+                // First-time save – insert
+                int newId = quizManager.addQuiz(quiz);
+                quiz.setQuizID(newId);
+            } else {
+                // Update existing quiz
+                quizManager.updateQuiz(quiz);
+            }
 
             // Handle achievement awards for first, fifth, and tenth quiz
             AccountManager accountManager = (AccountManager) getServletContext().getAttribute(AccountManager.ATTRIBUTE_NAME);
@@ -115,7 +133,7 @@ public class CreateQuizServlet extends HttpServlet {
             // Clean up session and redirect home
             request.getSession().removeAttribute("quiz");
             request.getSession().removeAttribute("questions");
-            response.sendRedirect("HomePageServlet");
+            response.sendRedirect("HomePageServlet#slide-4");
 
         } else if ("delete".equals(action)) {
             // Delete all questions for this quiz, then delete the quiz itself
@@ -128,7 +146,7 @@ public class CreateQuizServlet extends HttpServlet {
             // Clean up session and redirect home
             request.getSession().removeAttribute("quiz");
             request.getSession().removeAttribute("questions");
-            response.sendRedirect("HomePageServlet");
+            response.sendRedirect("HomePageServlet#slide-4");
         }
     }
 }
